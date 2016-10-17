@@ -1,0 +1,93 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">NY Freegan Forum</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
+            <li><a href="/new">New Report</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<form class="form-horizontal vert-offset-top-5" action="/new" method="POST">
+
+  <!-- Form Name -->
+  <h1 class="text-center">New Report</h1></legend>
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Title</label>
+    <div class="col-md-4">
+      <input id="title" name="title" placeholder="title" class="form-control input-md" type="text">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Business</label>
+    <div class="col-md-4">
+    <input id="business" name="business" placeholder="name of business" class="form-control input-md" type="text">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Location</label>
+    <div class="col-md-4">
+    <input id="location" name="location" placeholder="address or cross-streets" class="form-control input-md" type="text">
+    </div>
+  </div>
+
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Summary</label>
+    <div class="col-md-4">
+      <textarea class="form-control" rows="12" id="textarea" name="content" placeholder="type of a brief summary of your experience"></textarea>
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Date</label>
+    <div class="col-md-4">
+    <input id="date" name="date" placeholder="date" class="form-control input-md" type="text">
+    <span class="help-block">YYYY-MM-DD</span>
+    </div>
+  </div>
+
+  <!-- Multiple Radios -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="radios">Borough</label>
+      <div class="col-md-4">
+        <label class="radio-inline" for="radios-0">
+          <input name="radios" id="radios-0" value="1" checked="checked" type="radio">
+          Brooklyn
+        </label>
+        <label class="radio-inline" for="radios-1">
+          <input name="radios" id="radios-1" value="2" type="radio">
+          Bronx
+        </label>
+        <label class="radio-inline" for="radios-2">
+          <input name="radios" id="radios-2" value="3" type="radio">
+          Manhattan
+        </label>
+        <label class="radio-inline" for="radios-3">
+          <input name="radios" id="radios-3" value="4" type="radio">
+          Queens
+        </label>
+        <label class="radio-inline" for="radios-3">
+          <input name="radios" id="radios-3" value="4" type="radio">
+          Staten Island
+        </label>
+      </div>
+  </div>
+  <br></br>
+  <div class="container text-center">
+  <button type="submit" value="submit" class="btn btn-default">Submit</button>
+  </div class="container"
+  </form>

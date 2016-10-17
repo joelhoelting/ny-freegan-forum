@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">NY Freegan Forum</a>
+    <button type="button" value="signup" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/signup'">Sign Up</a></button>
+  </div>
+</nav>
+
+<div class="container vert-offset-top-14">
+  <form action="/login" method="POST">
+    <h3 class="text-center">Login</h3>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+       <div class="form-group">
+         <label for="username">Username:</label>
+         <input type="username" class="form-control" name="username" id="username">
+       </div>
+       <div class="form-group">
+         <label for="password">Password</label>
+         <input type="password" class="form-control" name="password" id="password">
+       </div>
+       <button type="submit" value="submit" class="btn btn-default">Submit</button>
+      </div>
+     </div>
+  </form>
+</div>
