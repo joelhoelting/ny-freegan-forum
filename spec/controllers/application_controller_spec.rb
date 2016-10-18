@@ -43,7 +43,7 @@ describe ApplicationController do
       visit '/signup'
       fill_in :username, :with => "michaelscott"
       fill_in :password, :with => "password123"
-      click_button "Create Account"
+      click_button "Signup"
       expect(User.all.count).to eq(1)
     end
 
@@ -183,14 +183,14 @@ describe ApplicationController do
 
   describe 'Creating a New report' do
     context 'logged in' do
-      it 'shows user new tweet form if logged in' do
+      it 'shows user new report form if logged in' do
         user = User.create(:username => "mrbigglez", :password => "katzen")
 
         visit '/login'
 
         fill_in(:username, :with => "mrbigglez")
         fill_in(:password, :with => "katzen")
-        click_button 'submit'
+        click_button 'Login'
         visit '/reports/new'
         expect(page.status_code).to eq(200)
       end
@@ -202,14 +202,16 @@ describe ApplicationController do
 
         fill_in(:username, :with => "mrbigglez")
         fill_in(:password, :with => "katzen")
-        click_button 'submit'
+        click_button "Login"
 
         visit 'reports/new'
         fill_in(:title, :with => "Ben and Jerries Ice Cream")
         fill_in(:business, :with => "Starbucks")
         fill_in(:location, :with => "146 Rikers Street")
-        fill_in(:date, :with => "2016-09-12")
         fill_in(:content, :with => "Some great food")
+        fill_in(:date, :with => "2016-09-12")
+
+        click_button "Submit"
 
         report = Report.find_by(content: "Some great food")
         expect(report).to be_instance_of(Report)

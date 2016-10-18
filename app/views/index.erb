@@ -2,9 +2,9 @@
   <div class="container">
     <a class="navbar-brand" href="/">NY Freegan Forum</a>
     <% if !logged_in? %>
-      <div class="btn-toolbar">
-        <button type="button" value="signup" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/signup'">Sign Up</button>
-        <button type="button" value="login" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/login'">Log In</button>
+      <div class="btn-toolbar navbar-right">
+        <button type="button" value="login" class="btn btn-default navbar-btn" onclick="location.href='/login'">Log In</button>
+        <button type="button" value="signup" class="btn btn-default navbar-btn" onclick="location.href='/signup'">Sign Up</button>
       </div>
     <% else %>
       <ul class="nav navbar-nav navbar-right">
