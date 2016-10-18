@@ -6,7 +6,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/users/<%=@user.slug%>">Profile</a></li>
-            <li><a href="/new">New Report</a></li>
+            <li><a href="/reports/new">New Report</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="/logout">Logout</a></li>
           </ul>
@@ -15,15 +15,15 @@
   </div>
 </nav>
 
-<form class="form-horizontal vert-offset-top-5" action="/new" method="POST">
+<form class="form-horizontal vert-offset-top-5" action="/reports/new" method="POST">
 
   <!-- Form Name -->
   <h1 class="text-center">New Report</h1></legend><br><br>
   <!-- Text input-->
   <div class="form-group">
-    <label class="col-md-4 control-label" for="textinput">Title</label>
+    <label class="col-md-4 control-label" for="title">Title</label>
     <div class="col-md-4">
-      <input id="title" value="title" name="title" placeholder="title" class="form-control input-md" type="text">
+      <input id="title" name="title" placeholder="title" class="form-control input-md" type="text">
     </div>
   </div>
 
@@ -31,7 +31,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Business</label>
     <div class="col-md-4">
-    <input id="business" name="business" placeholder="name of business" class="form-control input-md" type="text">
+      <input id="business" name="business" placeholder="name of business" class="form-control input-md" type="text">
     </div>
   </div>
 
@@ -39,7 +39,7 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="textinput">Location</label>
     <div class="col-md-4">
-    <input id="location" name="location" placeholder="address or cross-streets" class="form-control input-md" type="text">
+      <input id="location" name="location" placeholder="address or cross-streets" class="form-control input-md" type="text">
     </div>
   </div>
 
@@ -64,26 +64,9 @@
   <div class="form-group">
     <label class="col-md-4 control-label" for="radios">Borough</label>
       <div class="col-md-4">
-        <label class="radio-inline" for="radios-0">
-          <input name="radios" id="radios-0" value="1" checked="checked" type="radio">
-          Brooklyn
-        </label>
-        <label class="radio-inline" for="radios-1">
-          <input name="radios" id="radios-1" value="2" type="radio">
-          Bronx
-        </label>
-        <label class="radio-inline" for="radios-2">
-          <input name="radios" id="radios-2" value="3" type="radio">
-          Manhattan
-        </label>
-        <label class="radio-inline" for="radios-3">
-          <input name="radios" id="radios-3" value="4" type="radio">
-          Queens
-        </label>
-        <label class="radio-inline" for="radios-3">
-          <input name="radios" id="radios-3" value="4" type="radio">
-          Staten Island
-        </label>
+        <% Borough.all.each do |borough| %>
+          <label class="radio-inline"><input type="radio" name="borough" value="<%=borough.name%>"><%=borough.name%></label>
+        <%end%>
         <br><br>
         <button class="btn btn-lg btn-info btn-block" value="Create" type="submit">Submit</button>
       </div>
