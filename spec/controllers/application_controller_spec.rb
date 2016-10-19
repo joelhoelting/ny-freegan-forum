@@ -39,23 +39,9 @@ describe ApplicationController do
       expect(last_response.status).to eq(200)
     end
 
-    it "allows you to create a new user" do
-      visit '/signup'
-      fill_in :username, :with => "michaelscott"
-      fill_in :password, :with => "password123"
-      click_button "Signup"
-      expect(User.all.count).to eq(1)
-    end
-
-
-    it "redirects user to user show page after signup" do
-      params = {
-        :username => "thingonthewing",
-        :password => "password123"
-      }
-      post '/signup', params
-      @user = User.find_by(username: params[:username])
-      expect(last_response.location).to include("/users/#{@user.slug}")
+    it "signup page lets user know it wants password w/ minimum 6 characters, with one number and one special character" do
+      get '/signup'
+      expect(last_response.body).to include ("minimum six characters, 1 number and 1 special character")
     end
 
     it 'rejects username less than 6 characters and show one-time error message' do
@@ -80,10 +66,52 @@ describe ApplicationController do
       expect(last_response.body).to include("Password must be six or more characters")
     end
 
+    it 'password must one number and one non-alphanumeric character' do
+      params = {
+        :username => "alexscott",
+        :password => "rain1"
+      }
+      post '/signup', params
+      follow_redirect!
+      expect(last_request.url).to eq("http://example.org/signup")
+      expect(last_response.body).to include("minimum six characters, 1 number and 1 special character")
+    end
+
+    it 'cannot signup if username already exists' do
+      User.create(username: "alexthegreat", password: "pasword134!#{}")
+      params = {
+        username: "alexthegreat",
+        password: "wikileaks123$"
+      }
+      post '/signup', params
+      follow_redirect!
+      expect(last_request.url).to eq("http://example.org/signup")
+      expect(last_response.body).to include("username is already taken")
+    end
+
+    it "allows you to create a new user" do
+      visit '/signup'
+      fill_in :username, :with => "michaelscott"
+      fill_in :password, :with => "password123$!#"
+      click_button "Signup"
+      expect(User.all.count).to eq(1)
+    end
+
+
+    it "redirects user to user show page after signup" do
+      params = {
+        :username => "thingonthewing",
+        :password => "password123#"
+      }
+      post '/signup', params
+      @user = User.find_by(username: params[:username])
+      expect(last_response.location).to include("/users/#{@user.slug}")
+    end
+
     it 'does not let a signed up user view the signup page' do
       params = {
         :username => "skittles123",
-        :password => "rainbows"
+        :password => "rainbows1341%"
       }
       post '/signup', params
       session = {}
@@ -186,6 +214,8 @@ describe ApplicationController do
 
       before do
         @user = User.create(:username => "mrbigglez", :password => "katzen")
+        @user1 = User.create(:username => "jameston", :password => "townies")
+        @user2 = User.create(:username => "stallone420", :password => "hunde")
         Borough.create(name: "Brooklyn")
         Borough.create(name: "Bronx")
         Borough.create(name: "Manhattan")
@@ -214,8 +244,6 @@ describe ApplicationController do
       end
 
       it 'lets user create a report if they are logged in' do
-        @user = User.create(:username => "mrbigglez", :password => "katzen")
-
         visit '/login'
 
         fill_in(:username, :with => "mrbigglez")
@@ -232,7 +260,6 @@ describe ApplicationController do
 
         click_button "Create"
 
-        @user = User.find_by(:username => "mrbigglez")
         @report = Report.find_by(:content => "Some great food")
         expect(Report.all.count).to eq(1)
         expect(@report.user_id).to eq(@user.id)
@@ -241,9 +268,6 @@ describe ApplicationController do
       end
 
       it 'does not let a user create a report from another user' do
-        user1 = User.create(:username => "jameston", :password => "townies")
-        user2 = User.create(:username => "stallone420", :password => "hunde")
-
         visit '/login'
 
         fill_in(:username, :with => "jameston")
@@ -252,25 +276,62 @@ describe ApplicationController do
 
         visit '/reports/new'
 
-        fill_in(:title, :with => "Ben and Jerries Ice Cream")
-        fill_in(:business, :with => "Starbucks")
-        fill_in(:location, :with => "146 Rikers Street")
-        fill_in(:content, :with => "Some great food")
-        fill_in(:date, :with => "2016-09-12")
+        fill_in(:title, :with => "Cinnamon Bun Heaven")
+        fill_in(:business, :with => "Cinnabon")
+        fill_in(:location, :with => "146 Douglas Ave")
+        fill_in(:content, :with => "Super sticky buns")
+        fill_in(:date, :with => "2016-07-22")
         choose("Manhattan")
 
         click_button "Create"
 
-        user1 = User.find(user1.id)
-        user2 = User.find(user2.id)
-        report = Report.find_by(:content => "Some great food")
+        report = Report.find_by(:content => "Super sticky buns")
         expect(report).to be_instance_of(Report)
-        expect(report.user_id).to eq(user1.id)
-        expect(report.user_id).not_to eq(user2.id)
+        expect(report.user_id).to eq(@user1.id)
+        expect(report.user_id).not_to eq(@user2.id)
       end
 
-      it 'user gets error if new report has any blank parameters' do
+      it 'user gets error if new report has blank parameters' do
+        params = {
+          :username => "jameston",
+          :password => "townies"
+        }
+        post '/login', params
+        follow_redirect!
+        params = {
+          :title => "jameston",
+          :business => "townies",
+          :location => "122",
+          :content => "Some content is placed here",
+          :date => "2016-07-12"
+        }
+        post '/reports/new', params
+        follow_redirect!
+        expect(last_request.url).to eq("http://example.org/reports/new")
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include("Please do not leave any forms blank")
+      end
 
+      it 'date of new report must follow correct format' do
+        params = {
+          :username => "jameston",
+          :password => "townies"
+        }
+        post '/login', params
+        follow_redirect!
+        params = {
+          :title => "jameston",
+          :business => "townies",
+          :location => "122 Styvuesant Street",
+          :content => "Some content is placed here",
+          :date => "03-03-2016",
+          :borough => "Manhattan"
+        }
+        post '/reports/new', params
+        follow_redirect!
+        expect(last_request.url).to eq("http://example.org/reports/new")
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include("Date must follow proper format: YYYY-MM-DD")
       end
     end
   end

@@ -9,11 +9,17 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    if params[:username].length < 6
+    if User.find_by(username: params[:username])
+      flash[:message] = "Username is already taken"
+      redirect '/signup'
+    elsif params[:username].length < 6
       flash[:message] = "Username must be six or more characters."
       redirect '/signup'
     elsif params[:password].length < 6
       flash[:message] = "Password must be six or more characters"
+      redirect '/signup'
+    elsif (/[^\w]{1}/ =~ params[:password]).nil? || (/\d{1}/ =~ params[:password]).nil?
+      flash[:message] = "Password must contain one number and one special character"
       redirect '/signup'
     else
       @user = User.create(username: params[:username], password: params[:password])
