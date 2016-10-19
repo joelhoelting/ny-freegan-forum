@@ -61,14 +61,15 @@
   </div>
 
   <!-- Multiple Radios -->
+
   <div class="form-group">
     <label class="col-md-4 control-label" for="radios">Borough</label>
       <div class="col-md-4">
         <% Borough.all.each do |borough| %>
-          <label class="radio-inline"><input type="radio" name="borough" value="<%=borough.name%>"><%=borough.name%></label>
-        <%end%>
+          <label class="radio-inline"><input type="radio" name="borough" value="<%=borough.name%>" id="<%=borough.name%>"><%=borough.name%></label>
+        <% end %>
         <br><br>
-        <button class="btn btn-lg btn-info btn-block" value="Create" type="submit">Submit</button>
+        <button class="btn btn-lg btn-info btn-block" value="Create" name="Create" type="submit">Create Report</button>
       </div>
   </div>
 </form>

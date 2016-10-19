@@ -213,29 +213,65 @@ describe ApplicationController do
         expect(last_response.location).to eq("http://example.org/login")
       end
 
-      # it 'lets user create a report if they are logged in' do
-      #   @user = User.create(:username => "mrbigglez", :password => "katzen")
-      #
-      #   visit '/login'
-      #
-      #   fill_in(:username, :with => "mrbigglez")
-      #   fill_in(:password, :with => "katzen")
-      #   click_button "Login"
-      #
-      #   visit '/reports/new'
-      #   fill_in(:title, :with => "Ben and Jerries Ice Cream")
-      #   fill_in(:business, :with => "Starbucks")
-      #   fill_in(:location, :with => "146 Rikers Street")
-      #   fill_in(:content, :with => "Some great food")
-      #   fill_in(:date, :with => "2016-09-12")
-      #
-      #   click_button "Submit"
-      #
-      #   expect(@report).to be_instance_of(Report)
-      #   expect(@report.user_id).to eq(@user.id)
-      #   expect(@report.borough.name).to eq('Brooklyn')
-      #   expect(page.status_code).to eq(200)
-      # end
+      it 'lets user create a report if they are logged in' do
+        @user = User.create(:username => "mrbigglez", :password => "katzen")
+
+        visit '/login'
+
+        fill_in(:username, :with => "mrbigglez")
+        fill_in(:password, :with => "katzen")
+        click_button "Login"
+
+        visit '/reports/new'
+        fill_in(:title, :with => "Ben and Jerries Ice Cream")
+        fill_in(:business, :with => "Starbucks")
+        fill_in(:location, :with => "146 Rikers Street")
+        fill_in(:content, :with => "Some great food")
+        fill_in(:date, :with => "2016-09-12")
+        choose("Manhattan")
+
+        click_button "Create"
+
+        @user = User.find_by(:username => "mrbigglez")
+        @report = Report.find_by(:content => "Some great food")
+        expect(Report.all.count).to eq(1)
+        expect(@report.user_id).to eq(@user.id)
+        expect(@report.borough.name).to eq('Manhattan')
+        expect(page.status_code).to eq(200)
+      end
+
+      it 'does not let a user create a report from another user' do
+        user1 = User.create(:username => "jameston", :password => "townies")
+        user2 = User.create(:username => "stallone420", :password => "hunde")
+
+        visit '/login'
+
+        fill_in(:username, :with => "jameston")
+        fill_in(:password, :with => "townies")
+        click_button 'Login'
+
+        visit '/reports/new'
+
+        fill_in(:title, :with => "Ben and Jerries Ice Cream")
+        fill_in(:business, :with => "Starbucks")
+        fill_in(:location, :with => "146 Rikers Street")
+        fill_in(:content, :with => "Some great food")
+        fill_in(:date, :with => "2016-09-12")
+        choose("Manhattan")
+
+        click_button "Create"
+
+        user1 = User.find(user1.id)
+        user2 = User.find(user2.id)
+        report = Report.find_by(:content => "Some great food")
+        expect(report).to be_instance_of(Report)
+        expect(report.user_id).to eq(user1.id)
+        expect(report.user_id).not_to eq(user2.id)
+      end
+
+      it 'user gets error if new report has any blank parameters' do
+
+      end
     end
   end
 
