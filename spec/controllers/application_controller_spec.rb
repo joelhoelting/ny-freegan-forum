@@ -24,7 +24,7 @@ describe ApplicationController do
   describe "User profile page" do
     it 'shows all the reports submitted by the user' do
       user = User.create(username: "gijoeler", password: "monkeybusiness")
-      report = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave.", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: 01/02/2016, borough_id: 1, user_id: user.id)
+      report = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave.", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: 1, user_id: user.id)
       get "/users/#{user.slug}"
 
       expect(last_response.body).to include("Organic Vegan Dark Chocolate")
@@ -66,7 +66,7 @@ describe ApplicationController do
       expect(last_response.body).to include("Password must be six or more characters")
     end
 
-    it 'password must one number and one non-alphanumeric character' do
+    it 'password must contain one number and one non-alphanumeric character' do
       params = {
         :username => "alexscott",
         :password => "rain1"
@@ -86,7 +86,7 @@ describe ApplicationController do
       post '/signup', params
       follow_redirect!
       expect(last_request.url).to eq("http://example.org/signup")
-      expect(last_response.body).to include("username is already taken")
+      expect(last_response.body).to include("Username is already taken")
     end
 
     it "allows you to create a new user" do
@@ -228,7 +228,7 @@ describe ApplicationController do
         Borough.destroy_all
       end
 
-      it 'shows user new report form if logged in' do
+      it 'can show user view new report form if logged in' do
         visit '/login'
 
         fill_in(:username, :with => "mrbigglez")
@@ -264,7 +264,6 @@ describe ApplicationController do
         expect(Report.all.count).to eq(1)
         expect(@report.user_id).to eq(@user.id)
         expect(@report.borough.name).to eq('Manhattan')
-        expect(page.status_code).to eq(200)
       end
 
       it 'does not let a user create a report from another user' do
@@ -291,7 +290,7 @@ describe ApplicationController do
         expect(report.user_id).not_to eq(@user2.id)
       end
 
-      it 'user gets error if new report has blank parameters' do
+      it 'user gets error if new report has any blank or nil parameters' do
         params = {
           :username => "jameston",
           :password => "townies"
@@ -312,7 +311,7 @@ describe ApplicationController do
         expect(last_response.body).to include("Please do not leave any forms blank")
       end
 
-      it 'date of new report must follow correct format' do
+      it 'date of new report must follow correct format (YYYY-MM-DD)' do
         params = {
           :username => "jameston",
           :password => "townies"
@@ -334,6 +333,80 @@ describe ApplicationController do
         expect(last_response.body).to include("Date must follow proper format: YYYY-MM-DD")
       end
     end
+  end
+
+  describe 'show action' do
+    before do
+      @user = User.create(:username => "mrbigglez", :password => "katzen134$")
+      @user1 = User.create(:username => "jameston", :password => "townies123$")
+      @user2 = User.create(:username => "stallone420", :password => "hound123$")
+      Borough.create(name: "Brooklyn")
+      Borough.create(name: "Bronx")
+      Borough.create(name: "Manhattan")
+      Borough.create(name: "Queens")
+      Borough.create(name: "Staten Island")
+    end
+
+    after do
+      User.destroy_all
+      Borough.destroy_all
+    end
+
+    it 'displays show page of the new report with an option to edit' do
+      params = {
+        :username => "mrbigglez",
+        :password => "katzen134$"
+      }
+      post '/login', params
+      follow_redirect!
+
+      params = {
+        :title => "Watermelon Madness",
+        :business => "Food Emporium",
+        :location => "122 Styvuesant Street",
+        :content => "Some content is placed here",
+        :date => "2016-03-03",
+        :borough => "Manhattan"
+      }
+      post '/reports/new', params
+      follow_redirect!
+      report = Report.find_by(title: "Watermelon Madness")
+      expect(last_request.url).to eq("http://example.org/reports/watermelon-madness-1")
+      expect(last_response.body).to include(report.title)
+      expect(last_response.body).to include("Edit")
+    end
+
+    it 'report show page cannot be edited by another user' do
+      params = {
+        :username => "mrbigglez",
+        :password => "katzen134$"
+      }
+      post '/login', params
+      follow_redirect!
+
+      params = {
+        :title => "Watermelon Madness",
+        :business => "Food Emporium",
+        :location => "122 Styvuesant Street",
+        :content => "Some content is placed here",
+        :date => "2016-03-03",
+        :borough => "Manhattan"
+      }
+      post '/reports/new', params
+      follow_redirect!
+      report = Report.find_by(title: "Watermelon Madness")
+      get '/logout'
+
+      params = {
+        :username => "jameston",
+        :password => "townies123$"
+      }
+      post '/login', params
+      follow_redirect!
+      get "/reports/#{report.slug}"
+      (last_response.body).should_not include("Edit")
+    end
+
   end
 
 end

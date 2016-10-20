@@ -20,7 +20,17 @@ class ReportsController < ApplicationController
       @user = User.find_by(id: session[:user_id])
       @borough = Borough.find_by(name: params[:borough])
       @report = Report.create(title: params[:title], business: params[:business], location: params[:location], content: params[:content], date: params[:date], user_id: @user.id, borough_id: @borough.id)
+      redirect to "/reports/#{@report.slug}"
     end
+  end
+
+  get '/reports/:slug' do
+    @report = Report.find_by_slug(params[:slug])
+      if (session[:user_id] == @report.user_id) && @report.user_id != nil
+        erb :'reports/show_and_edit'
+      else
+        erb :'reports/show'
+      end
   end
 
 end

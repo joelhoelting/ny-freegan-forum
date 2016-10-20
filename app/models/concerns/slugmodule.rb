@@ -1,11 +1,4 @@
 module SlugModule
-  module InstanceMethods
-
-    def slug
-      name.downcase.gsub(" ","-")
-    end
-
-  end
 
   module ClassMethods
 
