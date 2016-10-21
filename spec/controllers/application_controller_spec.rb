@@ -335,7 +335,7 @@ describe ApplicationController do
     end
   end
 
-  describe 'show action' do
+  describe 'Show action' do
     before do
       @user = User.create(:username => "mrbigglez", :password => "katzen134$")
       @user1 = User.create(:username => "jameston", :password => "townies123$")
@@ -352,7 +352,7 @@ describe ApplicationController do
       Borough.destroy_all
     end
 
-    it 'displays show page of the new report with an option to edit' do
+    it 'displays show page of the new report with a link to edit' do
       params = {
         :username => "mrbigglez",
         :password => "katzen134$"
@@ -376,7 +376,7 @@ describe ApplicationController do
       expect(last_response.body).to include("Edit")
     end
 
-    it 'report show page cannot be edited by another user' do
+    it 'report show page only shows edit link to user who created it' do
       params = {
         :username => "mrbigglez",
         :password => "katzen134$"
@@ -404,9 +404,55 @@ describe ApplicationController do
       post '/login', params
       follow_redirect!
       get "/reports/#{report.slug}"
-      (last_response.body).should_not include("Edit")
+      expect(last_response.body).not_to include("Edit")
+    end
+  end
+
+  describe 'Edit action' do
+    before do
+      @user = User.create(:username => "michaelscott567", :password => "kittens123$")
+      @user1 = User.create(:username => "mrbigglez", :password => "katzen134$")
+      @user2 = User.create(:username => "jameston", :password => "townies123$")
+      Borough.create(name: "Brooklyn")
+      Borough.create(name: "Bronx")
+      Borough.create(name: "Manhattan")
+      Borough.create(name: "Queens")
+      Borough.create(name: "Staten Island")
+    end
+    after do
+      User.destroy_all
+      Borough.destroy_all
     end
 
+    context 'logged in' do
+      it 'lets a user view tweet edit form if they are logged in' do
+
+        report = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: Borough.find_by(name: "Manhattan").id, user_id: @user.id)
+        visit '/login'
+
+        fill_in(:username, :with => "michaelscott567")
+        fill_in(:password, :with => "kittens123$")
+        click_button 'Login'
+        visit "/reports/#{report.slug}/edit"
+        expect(page.status_code).to eq(200)
+        expect(page.body).to include(report.content)
+      end
+
+      it 'does not let a user edit a tweet they did not create' do
+        report = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: Borough.find_by(name: "Manhattan").id, user_id: @user.id)
+
+        visit '/login'
+
+        fill_in(:username, :with => "mrbigglez")
+        fill_in(:password, :with => "katzen134$")
+        click_button 'Login'
+        session = {}
+        session[:user_id] = @user1.id
+        visit "/reports/#{report.slug}/edit"
+        expect(page.current_path).to include("/users/#{@user.slug}")
+      end
+
+    end
   end
 
 end

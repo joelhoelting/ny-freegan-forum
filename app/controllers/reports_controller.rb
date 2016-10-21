@@ -5,6 +5,7 @@ class ReportsController < ApplicationController
       @user = User.find(session[:user_id ])
       erb :'reports/new'
     else
+      flash[:message] = "Please login to create a report"
       redirect '/login'
     end
   end
@@ -26,11 +27,33 @@ class ReportsController < ApplicationController
 
   get '/reports/:slug' do
     @report = Report.find_by_slug(params[:slug])
-      if (session[:user_id] == @report.user_id) && @report.user_id != nil
-        erb :'reports/show_and_edit'
-      else
-        erb :'reports/show'
-      end
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    if (session[:user_id] == @report.user_id) && @report.user_id != nil
+      erb :'reports/show_and_edit'
+    else
+      erb :'reports/show'
+    end
   end
+
+  get '/reports/:slug/edit' do
+    @report = Report.find_by_slug(params[:slug])
+    @user = User.find(@report.user_id)
+    erb :'/reports/edit'
+  end
+
+  # patch '/reports/:id' do
+  #   if params[:content] == "" || params[:content] == " " || params[:content].length < 2
+  #     flash[:message] = "Tweet cannot be empty"
+  #     redirect to "/tweets/#{params[:id]}/edit"
+  #   else
+  #     @tweet = Tweet.find(params[:id])
+  #     @tweet.content = params[:content]
+  #     @tweet.save
+  #     redirect to "/tweets/#{@tweet.id}"
+  #   end
+  # end
+
 
 end

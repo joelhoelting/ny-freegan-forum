@@ -1,3 +1,20 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">NY Freegan Forum</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
+            <li><a href="/reports/new">New Report</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
 <div class="container">
   <h1 class="text-center"><%=@report.title%></center></h1>
     <p>Borough: <%= @report.borough.name %>
@@ -5,5 +22,5 @@
     <p>Name of Business: <%= @report.business %></p>
     <p>Address/Location: <%= @report.location %></p>
     <p>Summary: <%= @report.content %></p>
-    <a href="/reports/:slug/edit">Edit</a>
+    <a href="/reports/<%=@report.slug%>/edit">Edit</a>
 </div>

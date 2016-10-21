@@ -1,0 +1,76 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">NY Freegan Forum</a>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
+            <li><a href="/reports/new">New Report</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<form class="form-horizontal vert-offset-top-5" action="/reports/<%=@report.slug%>" method="POST">
+  <input type='hidden' name="_method" value="PATCH">
+
+  <!-- Form Name -->
+  <h1 class="text-center">Edit Report: <%=@report.title%></h1></legend><br><br>
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="title">Title</label>
+    <div class="col-md-4">
+      <input id="title" name="title" placeholder="title" class="form-control input-md" type="text" value="<%= @report.content%>">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Business</label>
+    <div class="col-md-4">
+      <input id="business" name="business" placeholder="name of business" class="form-control input-md" type="text" value="<%= @report.business%>">
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Location</label>
+    <div class="col-md-4">
+      <input id="location" name="location" placeholder="address or cross-streets" class="form-control input-md" type="text" value="<%= @report.location%>">
+    </div>
+  </div>
+
+  <!-- Textarea -->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textarea">Summary</label>
+    <div class="col-md-4">
+      <textarea class="form-control" rows="12" id="textarea" name="content" placeholder="type of a brief summary of your experience"><%= @report.content%></textarea>
+    </div>
+  </div>
+
+  <!-- Text input-->
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="textinput">Date</label>
+    <div class="col-md-4">
+    <input id="date" name="date" placeholder="date" class="form-control input-md" type="text" value="<%= @report.date%>">
+    <span class="help-block">YYYY-MM-DD</span>
+    </div>
+  </div>
+
+  <!-- Multiple Radios -->
+
+  <div class="form-group">
+    <label class="col-md-4 control-label" for="radios">Borough</label>
+      <div class="col-md-4">
+        <% Borough.all.each do |borough| %>
+          <label class="radio-inline"><input type="radio" name="borough" value="<%=borough.name%>" id="<%=borough.name%>"<%= "checked" if (@report.borough == borough) %>><%=borough.name%></label>
+        <% end %>
+        <br><br>
+        <button class="btn btn-lg btn-info btn-block" value="Edit" name="button" type="submit">Edit Report</button>
+      </div>
+  </div>
+</form>
