@@ -31,29 +31,46 @@ class ReportsController < ApplicationController
       @user = User.find(session[:user_id])
     end
     if (session[:user_id] == @report.user_id) && @report.user_id != nil
-      erb :'reports/show_and_edit'
+      erb :'/reports/show_edit_delete'
     else
-      erb :'reports/show'
+      erb :'/reports/show'
     end
   end
 
   get '/reports/:slug/edit' do
-    @report = Report.find_by_slug(params[:slug])
-    @user = User.find(@report.user_id)
-    erb :'/reports/edit'
+    if logged_in?
+      @report = Report.find_by_slug(params[:slug])
+      if session[:user_id] == @report.user_id
+        @user = User.find(@report.user_id)
+        erb :'/reports/edit'
+      else
+        flash[:message] = "You cannot edit another user's report"
+        redirect to "/users/#{User.find(session[:user_id]).slug}"
+      end
+    else
+      redirect to '/login'
+    end
   end
 
-  # patch '/reports/:id' do
-  #   if params[:content] == "" || params[:content] == " " || params[:content].length < 2
-  #     flash[:message] = "Tweet cannot be empty"
-  #     redirect to "/tweets/#{params[:id]}/edit"
-  #   else
-  #     @tweet = Tweet.find(params[:id])
-  #     @tweet.content = params[:content]
-  #     @tweet.save
-  #     redirect to "/tweets/#{@tweet.id}"
-  #   end
-  # end
+  patch '/reports/:slug' do
+    if params[:title].nil? || params[:title].length < 3 || params[:business].nil? || params[:business].length < 3 || params[:location].nil? || params[:location].length < 3 || params[:content].nil? || params[:content].length < 3 || params[:date].nil? || params[:date].length < 3 || params[:borough].nil?
+      flash[:message] = "Please do not leave any forms blank"
+      redirect to "/reports/#{params[:slug]}/edit"
+    elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
+      flash[:message] = "Date must follow proper format: YYYY-MM-DD"
+      redirect to "/reports/#{params[:slug]}/edit"
+    else
+      @report = Report.find_by_slug(params[:slug])
+      @report.title = params[:title]
+      @report.business = params[:business]
+      @report.location = params[:location]
+      @report.content = params[:content]
+      @report.date = params[:date]
+      @report.borough = Borough.find_by(name: params[:borough])
+      @report.save
+      redirect to "/reports/#{@report.slug}"
+    end
+  end
 
 
 end

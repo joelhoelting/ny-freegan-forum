@@ -22,5 +22,15 @@
     <p>Name of Business: <%= @report.business %></p>
     <p>Address/Location: <%= @report.location %></p>
     <p>Summary: <%= @report.content %></p>
-    <a href="/reports/<%=@report.slug%>/edit">Edit</a>
+
+    <div class="col-4" style="clear: left;">
+      <form action="/reports/<%=@report.slug%>/edit" style="float: left;">
+        <input type="submit" value="Edit">
+      </form>
+
+      <form action="/reports/<%= @report.slug %>/delete" method="post" style="float: left;">
+        <input type="hidden" name="_method" value="delete" />
+        <input type="submit" id="Delete" value="Delete" />
+      </form>
+    </div>
 </div>
