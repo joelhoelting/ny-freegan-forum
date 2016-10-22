@@ -26,6 +26,11 @@
   <h1><center>Reports</center></h1>
   <% @reports.each do |report| %>
     <%= report.title %><br>
+    <% if report.user_id != nil %>
+      <p>Submitted by: <%=User.find(report.user_id).username%></p>
+    <% else %>
+      <p> Submitted by: computer </p>
+    <% end %>
     <%= report.date.strftime('%A, %b %d, %Y') %><br>
     <%= report.borough.name %><br>
     <%= report.business %><br>

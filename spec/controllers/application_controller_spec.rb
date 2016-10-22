@@ -31,7 +31,7 @@ describe ApplicationController do
     end
   end
 
-  describe 'User Authorization' do
+  describe 'User Authentication' do
     context "Signup Page" do
       it 'loads the signup page' do
         get '/signup'
@@ -521,8 +521,8 @@ describe ApplicationController do
     end
   end
 
-  describe 'delete action' do
-    context "logged in" do
+  describe 'Delete Action' do
+    context "Logged In" do
       before do
         @user = User.create(:username => "michaelscott567", :password => "kittens123$")
         @user1 = User.create(:username => "mrbigglez", :password => "katzen134$")
@@ -533,6 +533,7 @@ describe ApplicationController do
         Borough.create(name: "Queens")
         Borough.create(name: "Staten Island")
         Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: Borough.find_by(name: "Manhattan").id, user_id: @user2.id)
+        Report.create(title: "Brownie Bonanza", business: "Hipster's Bakery Paradise", location: "22 Hipster Ave, Williamsburg, Brooklyn", content: "Found some amazing brownies!", date: "2016-12-12", borough_id: Borough.find_by(name: "Brooklyn").id, user_id: @user.id)
 
       end
       after do
@@ -540,7 +541,7 @@ describe ApplicationController do
         Borough.destroy_all
       end
 
-      it 'lets a user delete their own tweet if they are logged in' do
+      it 'lets a user delete their own report if they are logged in' do
         visit '/login'
 
         fill_in(:username, :with => "jameston")
@@ -548,10 +549,49 @@ describe ApplicationController do
         click_button 'Login'
 
         visit "/reports/#{Report.find_by(title: "Organic Vegan Dark Chocolate").slug}"
-        click_button "Delete"
+        expect(page.body).to include("Delete")
+        click_button 'Delete'
         expect(page.status_code).to eq(200)
-        binding.pry
         expect(Report.find_by(:title => "Organic Vegan Dark Chocolate")).to eq(nil)
+        expect(page.current_path).to eq("/users/#{@user2.slug}")
+      end
+
+      it "doesn't let a user delete a report they did not create" do
+        visit '/login'
+
+        params = {
+          :username => "jameston",
+          :password => "townies123$"
+        }
+        post '/login', params
+        follow_redirect!
+
+        Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: Borough.find_by(name: "Manhattan").id, user_id: @user2.id)
+        visit "/reports/#{Report.find_by(title: "Organic Vegan Dark Chocolate").slug}"
+        expect(page.body).not_to include("Delete")
+        expect(Report.find_by(:title => "Organic Vegan Dark Chocolate")).to be_instance_of(Report)
+      end
+    end
+    context "Logged Out" do
+      before do
+        @user2 = User.create(:username => "jameston", :password => "townies123$")
+        Borough.create(name: "Brooklyn")
+        Borough.create(name: "Bronx")
+        Borough.create(name: "Manhattan")
+        Borough.create(name: "Queens")
+        Borough.create(name: "Staten Island")
+        Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: Borough.find_by(name: "Manhattan").id, user_id: @user2.id)
+      end
+      after do
+        User.destroy_all
+        Borough.destroy_all
+        Report.destroy_all
+      end
+      it "lets you see report show page of another user but not delete it" do
+        get "/reports/#{Report.find_by(title: "Organic Vegan Dark Chocolate").slug}"
+        expect(last_response.status).to eq(200)
+        expect(last_response.body).to include("Log In")
+        expect(last_request.url).to eq("http://example.org/reports/organic-vegan-dark-chocolate-1")
       end
     end
   end

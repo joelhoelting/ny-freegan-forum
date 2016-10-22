@@ -72,5 +72,16 @@ class ReportsController < ApplicationController
     end
   end
 
+  delete '/reports/:slug/delete' do
+    @user = User.find(session[:user_id])
+    @report = Report.find_by_slug(params[:slug])
+    if @report != nil && logged_in? && @report.user_id == session[:user_id]
+      @report.destroy
+      redirect to "/users/#{@user.slug}"
+    else
+      redirect to "/users/#{@user.slug}"
+    end
+  end
+
 
 end
