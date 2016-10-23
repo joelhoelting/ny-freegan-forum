@@ -17,14 +17,6 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get "/reports" do
-    if logged_in?
-      @user = User.find(session[:user_id])
-    end
-    @reports = Report.all
-    erb :'reports/index'
-  end
-
   helpers do
     def logged_in?
       !!session[:user_id]

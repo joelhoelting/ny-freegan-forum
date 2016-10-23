@@ -1,9 +1,39 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">NY Freegan Forum</a>
-    <button type="button" value="signup" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/signup'">Sign Up</a></button>
-  </div>
-</nav>
+<body class="onepage" data-spy="scroll" data-target=".navbar-fixed-top">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-custom" role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand" href="/">
+                <span class="light">NY</span> Freedom Forum
+              </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+              <ul class="nav navbar-nav">
+                  <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                  <li class="hidden">
+                      <a href="#page-top"></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="#about">About</a>
+                  </li>
+                  <li>
+                      <a href="/login">Log In</a>
+                  </li>
+                  <li>
+                      <a href="/signup">Sign Up</a>
+                  </li>
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+  </nav>
 
 <div class="container vert-offset-top-14">
   <form action="/login" method="POST">
@@ -15,10 +45,20 @@
          <input type="username" class="form-control" name="username" id="username">
        </div>
        <div class="form-group">
-         <label for="password">Password</label>
+         <label for="password">Password:</label>
          <input type="password" class="form-control" name="password" id="password">
        </div>
        <button class="btn btn-lg btn-info btn-block" value="Login" type="submit">Submit</button>
      </div>
   </form>
 </div>
+<!-- jQuery -->
+<script src="/js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.js"></script>
+<!-- Plugin JavaScript -->
+<script src="/js/jquery.easing.min.js"></script>
+<!-- Theme JavaScript -->
+<script src="/js/grayscale.js"></script>
+
+</body>

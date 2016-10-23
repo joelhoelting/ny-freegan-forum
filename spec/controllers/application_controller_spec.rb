@@ -6,7 +6,7 @@ describe ApplicationController do
     it "displays the home page" do
       get '/'
       expect(last_response.status).to eq(200)
-      expect(last_response.body).to include("website to inform and connect nyc freegans")
+      expect(last_response.body).to include("Connecting Freegans in New York City")
     end
 
 
@@ -43,7 +43,7 @@ describe ApplicationController do
         expect(last_response.body).to include ("minimum six characters, 1 number and 1 special character")
       end
 
-      it 'rejects username less than 6 characters and show one-time error message' do
+      it 'rejects username less than 6 characters and shows one-time error message' do
         params = {
           :username => "alex",
           :password => "rainbows"
@@ -54,7 +54,7 @@ describe ApplicationController do
         expect(last_response.body).to include("Username must be six or more characters")
       end
 
-      it 'rejects password less than 6 characters and show one-time error message' do
+      it 'rejects password less than 6 characters and shows one-time error message' do
         params = {
           :username => "alexscott",
           :password => "rain"
@@ -142,7 +142,7 @@ describe ApplicationController do
         expect(last_response.body).to include("#{@user.username}")
       end
 
-      it 'index page has link to create new report after login' do
+      it 'user show page now has link to create new report after login' do
         params = {
           :username => "MrBigglesworth",
           :password => "funnycat123"
@@ -227,7 +227,7 @@ describe ApplicationController do
         Borough.destroy_all
       end
 
-      it 'can show user view new report form if logged in' do
+      it 'can show user new report form if logged in' do
         visit '/login'
 
         fill_in(:username, :with => "mrbigglez")
@@ -265,7 +265,7 @@ describe ApplicationController do
         expect(@report.borough.name).to eq('Manhattan')
       end
 
-      it 'does not let a user create a report from another user' do
+      it 'new reports can only belong to currently logged in users' do
         visit '/login'
 
         fill_in(:username, :with => "jameston")
@@ -334,7 +334,7 @@ describe ApplicationController do
     end
 
     context 'Logged Out' do
-      it 'user not logged in cannot access new report page' do
+      it 'logged out user cannot access new report page' do
         get '/reports/new'
         expect(last_response.location).to include("/login")
       end
@@ -346,71 +346,150 @@ describe ApplicationController do
       @user = User.create(:username => "mrbigglez", :password => "katzen134$")
       @user1 = User.create(:username => "jameston", :password => "townies123$")
       @user2 = User.create(:username => "stallone420", :password => "hound123$")
-      Borough.create(name: "Brooklyn")
-      Borough.create(name: "Bronx")
-      Borough.create(name: "Manhattan")
-      Borough.create(name: "Queens")
-      Borough.create(name: "Staten Island")
+      @brooklyn = Borough.create(name: "Brooklyn")
+      @bronx = Borough.create(name: "Bronx")
+      @manhattan = Borough.create(name: "Manhattan")
+      @queens = Borough.create(name: "Queens")
+      @staten_island = Borough.create(name: "Staten Island")
+      @report1 = Report.create(title: "Ben and Jerries Ice Cream", business: "Key Food", location: "60 St. Michael's Place", content: "My girlfriend and I were rollerblading at around 10pm. We went to the Flatbush Food Coop but had little success. A few blocks south there is a supermarket that throws away perfectly good food at closing time: around 11pm. We scored 10 cartons of Ben and Jerries and because it was late not many people took pictures of us!", date: "2016-08-21", borough_id: @brooklyn.id, user_id: @user1.id)
+      @report2 = Report.create(title: "Organic Salad in Bushwick", business: "Organic Mart", location: "455 Steinway St.", content: "We were walking around at around 10PM and we found some freshly tossed garbage bags filled with 10 sealed packages of organic baby spinach. I can't even afford this stuff brand new in the store. Salad is served for the next month!", date: "2016-08-21", borough_id: @brooklyn.id, user_id: @user.id)
+      @report3 = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave.", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-08-21", borough_id: @bronx.id, user_id: @user1.id)
+      @report4 = Report.create(title: "Makeup Madness!", business: "Sephora", location: "Herald Square, NY, NY", content: "This was the easiest dive ever! I was shopping at Sephora and employees began filling up barbage bags right in front of me. It wasn't the most professional thing I've ever seen but whatever. I followed them outside and swan dived into the garbage. I scored $200 worth of makeup. I will never be ugly again!", date: "2016-08-21", borough_id: @queens.id, user_id: @user2.id)
+      @report5 = Report.create(title: "Found Books", business: "Strand Bookstore", location: "Union Sq. NY, NY", content: "Everybody knows that Strand has the discount books section in front of their store at all times. However, if you open a book called 'Open Sesame' a secret hatch will open in the sidewalk. When you go down the hatch you will have your dreams answered and there are free books!", date: "2016-08-21", borough_id: @manhattan.id, user_id: @user.id)
+      @report6 = Report.create(title: "Organic Cashews", business: "Flatbush Food Coop", location: "232 Mongoose Lane", content: "This dive will require guts and is of a legally dubious nature. List of items required: wirecutters, sodering iron, bolt-cutters, balls of steel. When the pitbulls finish their rounds cut through the outer fence. You will then need to use the sodering iron to cut a cut a hole in the next fence. Finally, you will see a gold dumpster up ahead. Use the bolt-cutters and you will be rewarded by an entire dumpster filled with Organic Icelandic cashews. I wasn't aware that cashews grew in Iceland, but I guess you learn something new every day!", date: "2016-08-21", borough_id: @queens.id, user_id: @user.id)
+      @report7 = Report.create(title: "Panoply of Pitas", business: "Damascus Bakeries", location: "121 Eastern Ave, Brooklyn Bridge", content: "The pita goldmine is right outside the back entrance of this bakery. Just get there at around 9pm and you will have enough Pitas for the remainder of your time on this planet. Toast em, freeze em, make a blanket out of em. Anything is better than the garbage!", date: "2016-08-21", borough_id: @staten_island.id, user_id: @user2.id)
     end
 
     after do
       User.destroy_all
-      Borough.destroy_all
+      Report.destroy_all
+    end
+    context 'New Report' do
+      it 'displays show page of the new report with a link to edit' do
+        params = {
+          :username => "mrbigglez",
+          :password => "katzen134$"
+        }
+        post '/login', params
+        follow_redirect!
+        params = {
+          :title => "Watermelon Madness",
+          :business => "Food Emporium",
+          :location => "122 Styvuesant Street",
+          :content => "Some content is placed here",
+          :date => "2016-03-03",
+          :borough => "Manhattan"
+        }
+        post '/reports/new', params
+        follow_redirect!
+        report = Report.find_by(title: "Watermelon Madness")
+        expect(last_request.url).to eq("http://example.org/reports/watermelon-madness-1")
+        expect(last_response.body).to include(report.title)
+        expect(last_response.body).to include("Edit")
+      end
+
+      it 'report show page only shows edit link to user who created it' do
+        params = {
+          :username => "mrbigglez",
+          :password => "katzen134$"
+        }
+        post '/login', params
+        follow_redirect!
+
+        params = {
+          :title => "Watermelon Madness",
+          :business => "Food Emporium",
+          :location => "122 Styvuesant Street",
+          :content => "Some content is placed here",
+          :date => "2016-03-03",
+          :borough => "Manhattan"
+        }
+        post '/reports/new', params
+        follow_redirect!
+        report = Report.find_by(title: "Watermelon Madness")
+        get '/logout'
+
+        params = {
+          :username => "jameston",
+          :password => "townies123$"
+        }
+        post '/login', params
+        follow_redirect!
+        get "/reports/#{report.slug}"
+        expect(last_response.body).not_to include("Edit")
+      end
     end
 
-    it 'displays show page of the new report with a link to edit' do
-      params = {
-        :username => "mrbigglez",
-        :password => "katzen134$"
-      }
-      post '/login', params
-      follow_redirect!
+    context 'Borough Show Pages' do
+      it 'displays Bronx Showpage' do
+        get '/reports/bronx'
+        expect(last_request.url).to eq("http://example.org/reports/bronx")
+        Report.all.each do |report|
+          if report.borough == "Bronx"
+            expect(last_response.body).to include(report.title)
+            expect(last_response.body).to include(report.content)
+            expect(last_response.body).to include(report.date)
+            expect(last_response.body).to include(report.borough)
+          end
+        end
+        expect(last_response.status).to eq(200)
+      end
 
-      params = {
-        :title => "Watermelon Madness",
-        :business => "Food Emporium",
-        :location => "122 Styvuesant Street",
-        :content => "Some content is placed here",
-        :date => "2016-03-03",
-        :borough => "Manhattan"
-      }
-      post '/reports/new', params
-      follow_redirect!
-      report = Report.find_by(title: "Watermelon Madness")
-      expect(last_request.url).to eq("http://example.org/reports/watermelon-madness-1")
-      expect(last_response.body).to include(report.title)
-      expect(last_response.body).to include("Edit")
-    end
+      it 'displays Brooklyn Showpage' do
+        get '/reports/brooklyn'
+        expect(last_request.url).to eq("http://example.org/reports/brooklyn")
+        Report.all.each do |report|
+          if report.borough == "Brooklyn"
+            expect(last_response.body).to include(report.title)
+            expect(last_response.body).to include(report.content)
+            expect(last_response.body).to include(report.date)
+            expect(last_response.body).to include(report.borough)
+          end
+        end
+        expect(last_response.status).to eq(200)
+      end
 
-    it 'report show page only shows edit link to user who created it' do
-      params = {
-        :username => "mrbigglez",
-        :password => "katzen134$"
-      }
-      post '/login', params
-      follow_redirect!
+      it 'displays Manhattan Showpage' do
+        get '/reports/manhattan'
+        expect(last_request.url).to eq("http://example.org/reports/manhattan")
+        Report.all.each do |report|
+          if report.borough == "Manhattan"
+            expect(last_response.body).to include(report.title)
+            expect(last_response.body).to include(report.content)
+            expect(last_response.body).to include(report.date)
+            expect(last_response.body).to include(report.borough)
+          end
+        end
+        expect(last_response.status).to eq(200)
+      end
 
-      params = {
-        :title => "Watermelon Madness",
-        :business => "Food Emporium",
-        :location => "122 Styvuesant Street",
-        :content => "Some content is placed here",
-        :date => "2016-03-03",
-        :borough => "Manhattan"
-      }
-      post '/reports/new', params
-      follow_redirect!
-      report = Report.find_by(title: "Watermelon Madness")
-      get '/logout'
+      it 'displays Queens Showpage' do
+        get '/reports/queens'
+        expect(last_request.url).to eq("http://example.org/reports/queens")
+        Report.all.each do |report|
+          if report.borough == "Queens"
+            expect(last_response.body).to include(report.title)
+            expect(last_response.body).to include(report.content)
+            expect(last_response.body).to include(report.date)
+            expect(last_response.body).to include(report.borough)
+          end
+        end
+        expect(last_response.status).to eq(200)
+      end
 
-      params = {
-        :username => "jameston",
-        :password => "townies123$"
-      }
-      post '/login', params
-      follow_redirect!
-      get "/reports/#{report.slug}"
-      expect(last_response.body).not_to include("Edit")
+      it 'displays Staten Island Showpage' do
+        get '/reports/staten_island'
+        expect(last_request.url).to eq("http://example.org/reports/staten_island")
+        Report.all.each do |report|
+          if report.borough == "Staten Island"
+            expect(last_response.body).to include(report.title)
+            expect(last_response.body).to include(report.content)
+            expect(last_response.body).to include(report.date)
+            expect(last_response.body).to include(report.borough)
+          end
+        end
+        expect(last_response.status).to eq(200)
+      end
     end
   end
 

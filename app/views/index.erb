@@ -1,31 +1,79 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">NY Freegan Forum</a>
-    <% if !logged_in? %>
-      <div class="btn-toolbar navbar-right">
-        <button type="button" value="login" class="btn btn-default navbar-btn" onclick="location.href='/login'">Log In</button>
-        <button type="button" value="signup" class="btn btn-default navbar-btn" onclick="location.href='/signup'">Sign Up</button>
-      </div>
-    <% else %>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
-            <li><a href="/reports/new">New Report</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    <% end %>
-  </div>
-</nav>
+<body class="welcome" id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 
-<div class="jumbotron vert-offset-top-13">
-  <div class="container">
-    <h1>NY Freegan Forum</h1>
-    <p>A website to inform and connect nyc freegans</p>
-    <br><br>
-  </div>
-</div>
+  <!-- Navigation -->
+  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand page-scroll" href="#page-top">
+                <span class="light">NY</span> Freedom Forum
+              </a>
+          </div>
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+              <ul class="nav navbar-nav">
+                  <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                  <li class="hidden">
+                      <a href="#page-top"></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="#about">About</a>
+                  </li>
+                  <li>
+                      <a href="/login">Log In</a>
+                  </li>
+                  <li>
+                      <a href="/signup">Sign Up</a>
+                  </li>
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+  </nav>
+
+  <!-- Intro Header -->
+  <header class="intro">
+      <div class="intro-body">
+          <div class="container">
+              <div class="row">
+                  <div class="col-md-8 col-md-offset-2">
+                      <h1 class="brand-heading">NY Freegan Forum</h1>
+                      <p class="intro-text">Connecting Freegans in New York City</p>
+                      <a href="/reports" class="btn btn-default btn-lg">View Reports</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" class="container content-section text-center">
+      <div class="row">
+          <div class="col-lg-8 col-lg-offset-2">
+              <h2>Freeganism</h2>
+              <p>Freeganism is a practice and ideology of limited participation in the conventional economy and minimal consumption of resources. Freegans reject consumerism and seeks to help the environment by reducing waste, especially by retrieving and using discarded food and other goods. The word "freegan" is a coinage derived from "free" and "vegan". While vegans might avoid buying animal products as an act of protest against animal exploitation, freegans avoid buying anything as an act of protest against the food system in general.</p>
+              <br><br><br><br><br><br><br><br><br><br>
+          </div>
+      </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+      <div class="container text-center">
+          <p>&copy; Joel Bitar 2016</p>
+      </div>
+  </footer>
+  <!-- jQuery -->
+  <script src="/js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="/js/bootstrap.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="/js/jquery.easing.min.js"></script>
+  <!-- Theme JavaScript -->
+  <script src="/js/grayscale.js"></script>
+
+</body>

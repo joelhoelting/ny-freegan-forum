@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="/">NY Freegan Forum</a>
+    <% if !logged_in? %>
+      <div class="btn-toolbar">
+        <button type="button" value="signup" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/signup'">Sign Up</button>
+        <button type="button" value="login" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/login'">Log In</button>
+      </div>
+    <% else %>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
+            <li><a href="/reports/new">New Report</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+</nav>
+
+<div class="container">
+  <h1><center>Brooklyn</center></h1>
+  <% @reports.each do |report| %>
+    <%= report.title %><br>
+    <% if report.user_id != nil %>
+      <p>Submitted by: <%=User.find(report.user_id).username%></p>
+    <% else %>
+      <p> Submitted by: computer </p>
+    <% end %>
+    <%= report.date.strftime('%A, %b %d, %Y') %><br>
+    <%= report.borough.name %><br>
+    <%= report.business %><br>
+    <%= report.location %><br>
+    <%= report.content %><br>
+    <p><a href="../reports/<%=report.slug%>">link</a></p>
+  <% end %>
+</div>

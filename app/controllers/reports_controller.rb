@@ -1,21 +1,29 @@
 class ReportsController < ApplicationController
 
+  get '/reports' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @reports = Report.all
+    erb :'reports/index'
+  end
+
   get '/reports/new' do
     if logged_in?
       @user = User.find(session[:user_id ])
       erb :'reports/new'
     else
-      flash[:message] = "Please login to create a report"
+      flash[:failure] = "Please login to create a report"
       redirect '/login'
     end
   end
 
   post '/reports/new' do
     if params[:title].nil? || params[:title].length < 3 || params[:business].nil? || params[:business].length < 3 || params[:location].nil? || params[:location].length < 3 || params[:content].nil? || params[:content].length < 3 || params[:date].nil? || params[:date].length < 3 || params[:borough].nil?
-      flash[:message] = "Please do not leave any forms blank"
+      flash[:failure] = "Please do not leave any forms blank"
       redirect to '/reports/new'
     elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
-      flash[:message] = "Date must follow proper format: YYYY-MM-DD"
+      flash[:failure] = "Date must follow proper format: YYYY-MM-DD"
       redirect to '/reports/new'
     else
       @user = User.find_by(id: session[:user_id])
@@ -24,6 +32,55 @@ class ReportsController < ApplicationController
       redirect to "/reports/#{@report.slug}"
     end
   end
+
+  ### Boroughs Controller ###
+
+  get '/reports/bronx' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @bronx = Borough.find_by(name: "Bronx")
+    @reports = @bronx.reports.all
+    erb :'/boroughs/bronx'
+  end
+
+  get '/reports/brooklyn' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @brooklyn = Borough.find_by(name: "Brooklyn")
+    @reports = @brooklyn.reports.all
+    erb :'/boroughs/brooklyn'
+  end
+
+  get '/reports/manhattan' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @manhattan = Borough.find_by(name: "Manhattan")
+    @reports = @manhattan.reports.all
+    erb :'/boroughs/manhattan'
+  end
+
+  get '/reports/queens' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @queens = Borough.find_by(name: "Queens")
+    @reports = @queens.reports.all
+    erb :'/boroughs/queens'
+  end
+
+  get '/reports/staten_island' do
+    if logged_in?
+      @user = User.find(session[:user_id])
+    end
+    @staten_island = Borough.find_by(name: "Staten Island")
+    @reports = @staten_island.reports.all
+    erb :'/boroughs/staten_island'
+  end
+
+  ### End Boroughs Controller ###
 
   get '/reports/:slug' do
     @report = Report.find_by_slug(params[:slug])
@@ -44,7 +101,7 @@ class ReportsController < ApplicationController
         @user = User.find(@report.user_id)
         erb :'/reports/edit'
       else
-        flash[:message] = "You cannot edit another user's report"
+        flash[:failure] = "You cannot edit another user's report"
         redirect to "/users/#{User.find(session[:user_id]).slug}"
       end
     else
@@ -54,10 +111,10 @@ class ReportsController < ApplicationController
 
   patch '/reports/:slug' do
     if params[:title].nil? || params[:title].length < 3 || params[:business].nil? || params[:business].length < 3 || params[:location].nil? || params[:location].length < 3 || params[:content].nil? || params[:content].length < 3 || params[:date].nil? || params[:date].length < 3 || params[:borough].nil?
-      flash[:message] = "Please do not leave any forms blank"
+      flash[:failure] = "Please do not leave any forms blank"
       redirect to "/reports/#{params[:slug]}/edit"
     elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
-      flash[:message] = "Date must follow proper format: YYYY-MM-DD"
+      flash[:failure] = "Date must follow proper format: YYYY-MM-DD"
       redirect to "/reports/#{params[:slug]}/edit"
     else
       @report = Report.find_by_slug(params[:slug])

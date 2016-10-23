@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<html lang="EN">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>NY Freegan Forum</title>
+    <!-- Bootstrap Core CSS -->
     <link href="/stylesheets/bootstrap.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Theme CSS -->
+    <link href="/stylesheets/grayscale.css" rel="stylesheet">
   </head>
-  <body>
-    <% if flash[:message] %>
-      <div class="alert alert-danger text-center vert-offset-top-custom">
-        <%= flash[:message] %>
-      </div>
-    <% end %>
-    <%= yield %>
-    <script src="/js/jquery-2.2.4.js" type="text/javascript"></script>
-    <script src="/js/bootstrap.js"></script>
-  </body>
-</html>
+  <% if flash[:failure] %>
+    <div class="alert alert-danger text-center vert-offset-top-custom">
+      <%= flash[:failure] %>
+    </div>
+  <% end %>
+  <% if flash[:success] %>
+    <div class="alert alert-success text-center">
+      <%= flash[:success] %>
+    </div>
+  <% end %>
+  <%= yield %>
+
+  </html>

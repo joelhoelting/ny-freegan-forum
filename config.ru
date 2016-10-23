@@ -6,6 +6,5 @@ end
 
 use Rack::MethodOverride
 use ReportsController
-use BoroughsController
 use UsersController
 run ApplicationController
