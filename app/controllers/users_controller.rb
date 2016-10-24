@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     else
       @user = User.create(username: params[:username], password: params[:password])
       session[:user_id] = @user.id
-      redirect to "/users/#{@user.slug}"
+      redirect to "/#{@user.slug}"
     end
   end
 
@@ -60,6 +60,7 @@ class UsersController < ApplicationController
   end
 
   get '/:slug' do
+    @current_user = User.find(session[:user_id])
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end
