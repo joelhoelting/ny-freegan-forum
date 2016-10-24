@@ -1,32 +1,63 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="/">NY Freegan Forum</a>
-    <% if !logged_in? %>
-      <div class="btn-toolbar">
-        <button type="button" value="signup" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/signup'">Sign Up</button>
-        <button type="button" value="login" class="btn btn-default navbar-btn navbar-right" onclick="location.href='/login'">Log In</button>
-      </div>
-    <% else %>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= @user.username %><span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/users/<%=@user.slug%>">Profile</a></li>
-            <li><a href="/reports/new">New Report</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="/logout">Logout</a></li>
-          </ul>
-        </li>
-      </ul>
-    <% end %>
-  </div>
-</nav>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-custom" role="navigation">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                  Menu <i class="fa fa-bars"></i>
+              </button>
+              <a class="navbar-brand" href="/">
+                <span class="light">NY</span> Freedom Forum
+              </a>
+          </div>
 
-<div class="container">
-  <h1 class="text-center"><%=@report.title%></center></h1>
-    <p>Borough: <%= @report.borough.name %>
-    <p>Date: <%= @report.date.strftime('%A, %b %d, %Y') %></p>
-    <p>Name of Business: <%= @report.business %></p>
-    <p>Address/Location: <%= @report.location %></p>
-    <p>Summary: <%= @report.content %></p>
-</div>
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+              <ul class="nav navbar-nav">
+                <% if !logged_in? %>
+                  <li>
+                    <a href="/reports">View Reports</a>
+                  </li>
+                  <li>
+                    <a href="/login">Log In</a>
+                  </li>
+                  <li>
+                      <a href="/signup">Sign Up</a>
+                  </li>
+                <% else %>
+                  <li>
+                    <a href="/reports/new">New Report</a>
+                  </li>
+                  <li>
+                    <a href="/<%= @user.slug %>">Profile</a>
+                  </li>
+                  <li>
+                    <a href="/logout">Log Out</a>
+                  </li>
+                <% end %>
+              </ul>
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+  </nav>
+
+  <div class="container vert-center">
+    <h1 class="text-center"><%=@report.title%></center></h1>
+      <p>Borough: <%= @report.borough.name %></p>
+      <p>Date: <%= @report.date.strftime('%A, %b %d, %Y') %></p>
+      <p>Name of Business: <%= @report.business %></p>
+      <p>Address/Location: <%= @report.location %></p>
+      <p>Summary: <%= @report.content %></p>
+  </div>
+
+  <!-- jQuery -->
+  <script src="/js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="/js/bootstrap.js"></script>
+  <!-- Plugin JavaScript -->
+  <script src="/js/jquery.easing.min.js"></script>
+  <!-- Theme JavaScript -->
+  <script src="/js/grayscale.js"></script>
+
+</body>

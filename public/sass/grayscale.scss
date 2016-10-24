@@ -384,3 +384,26 @@ img::-moz-selection {
 body {
     -webkit-tap-highlight-color: rgba(white, 0.2);
 }
+
+.dropdown-menu {
+  font-size: 20px;
+  background-color: #E6E6E6;
+          @media(max-width:768px) {
+              font-size: 14px;
+          }
+}
+
+.dropdown-menu .divider {
+  background-color: #B1B1B1;
+}
+
+.dropdown-menu > li > a {
+  font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color: #333;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #262626;
+  text-decoration: none;
+  background-color: #B1B1B1;
+}

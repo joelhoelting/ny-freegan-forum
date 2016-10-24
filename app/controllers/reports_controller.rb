@@ -24,6 +24,7 @@ class ReportsController < ApplicationController
       redirect to '/reports/new'
     elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
       flash[:failure] = "Date must follow proper format: YYYY-MM-DD"
+      flash[:content] = params[:content]
       redirect to '/reports/new'
     else
       @user = User.find_by(id: session[:user_id])
