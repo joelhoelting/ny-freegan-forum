@@ -131,6 +131,8 @@ a {
                 transition: background .3s ease-in-out;
                 &:hover {
                     color: rgba(white, 0.8);
+                    padding-bottom: 5px;
+                    border-bottom: 2px solid white;
                     outline: none;
                     background-color: transparent;
                 }
