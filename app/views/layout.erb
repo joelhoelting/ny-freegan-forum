@@ -15,6 +15,8 @@
     <!-- Theme CSS -->
     <link href="/stylesheets/grayscale.css" rel="stylesheet">
   </head>
+
+  <%= yield %>
   <% if flash[:failure] %>
     <div class="alert alert-danger text-center vert-offset-top-custom">
       <%= flash[:failure] %>
@@ -25,6 +27,4 @@
       <%= flash[:success] %>
     </div>
   <% end %>
-  <%= yield %>
-
   </html>

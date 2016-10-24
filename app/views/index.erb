@@ -15,19 +15,27 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
               <ul class="nav navbar-nav">
-                  <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                  <li class="hidden">
-                      <a href="#page-top"></a>
-                  </li>
-                  <li>
-                      <a class="page-scroll" href="#about">About</a>
-                  </li>
-                  <li>
-                      <a href="/login">Log In</a>
-                  </li>
-                  <li>
-                      <a href="/signup">Sign Up</a>
-                  </li>
+                  <% if !logged_in? %>
+                    <li>
+                        <a class="page-scroll" href="#about">About</a>
+                    </li>
+                    <li>
+                        <a href="/login">Log In</a>
+                    </li>
+                    <li>
+                        <a href="/signup">Sign Up</a>
+                    </li>
+                  <% else %>
+                    <li>
+                        <a href="/reports/new">New Report</a>
+                    </li>
+                    <li>
+                        <a href="/<%=@user.slug%>">Profile</a>
+                    </li>
+                    <li>
+                        <a href="/logout">Log Out</a>
+                    </li>
+                  <% end %>
               </ul>
           </div>
           <!-- /.navbar-collapse -->

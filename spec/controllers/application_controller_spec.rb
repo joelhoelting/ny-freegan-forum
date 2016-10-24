@@ -23,7 +23,7 @@ describe ApplicationController do
     it 'shows all the reports submitted by the user' do
       user = User.create(username: "gijoeler", password: "monkeybusiness")
       report = Report.create(title: "Organic Vegan Dark Chocolate", business: "Cindy's Organic Grocery Store", location: "122 Church Ave.", content: "At around 8pm, employees at this grocery store start taking out the trash. Some of the food is expired by a few days or weeks but it is still in good condition. We hit the jackpot with about 20 bars of vegan dark chocolate made in Chile. Each bar still had the price tag: $6 dollars per bar!", date: "2016-09-12", borough_id: 1, user_id: user.id)
-      get "/users/#{user.slug}"
+      get "/#{user.slug}"
 
       expect(last_response.body).to include(report.title)
       expect(last_response.body).to include(report.content)
@@ -103,7 +103,7 @@ describe ApplicationController do
         }
         post '/signup', params
         @user = User.find_by(username: params[:username])
-        expect(last_response.location).to include("/users/#{@user.slug}")
+        expect(last_response.location).to include("/#{@user.slug}")
       end
 
       it 'does not let a signed up user view the signup page' do
@@ -136,7 +136,7 @@ describe ApplicationController do
         }
         post '/login', params
         expect(last_response.status).to eq(302)
-        expect(last_response.location).to eq("http://example.org/users/mrbigglesworth")
+        expect(last_response.location).to eq("http://example.org/mrbigglesworth")
         follow_redirect!
         expect(last_response.status).to eq(200)
         expect(last_response.body).to include("#{@user.username}")
@@ -534,7 +534,7 @@ describe ApplicationController do
         session = {}
         session[:user_id] = @user1.id
         visit "/reports/#{report.slug}/edit"
-        expect(page.current_path).to include("/users/#{@user1.slug}")
+        expect(page.current_path).to include("/#{@user1.slug}")
         expect(page.body).to include("You cannot edit another user's report")
       end
 
@@ -632,7 +632,7 @@ describe ApplicationController do
         click_button 'Delete'
         expect(page.status_code).to eq(200)
         expect(Report.find_by(:title => "Organic Vegan Dark Chocolate")).to eq(nil)
-        expect(page.current_path).to eq("/users/#{@user2.slug}")
+        expect(page.current_path).to eq("/#{@user2.slug}")
       end
 
       it "doesn't let a user delete a report they did not create" do

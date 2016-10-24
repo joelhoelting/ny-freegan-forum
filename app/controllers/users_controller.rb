@@ -12,8 +12,10 @@ class UsersController < ApplicationController
     if User.find_by(username: params[:username])
       flash[:failure] = "Username is already taken"
       redirect '/signup'
+    elsif params[:username] == "signup" || params[:username]=="login"
+      flash[:failure] = "Username is unavailable"
     elsif params[:username].length < 6
-      flash[:failure] = "Username must be six or more characters."
+      flash[:failure] = "Username must be six or more characters"
       redirect '/signup'
     elsif params[:password].length < 6
       flash[:failure] = "Password must be six or more characters"
@@ -40,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect "/users/#{@user.slug}"
+      redirect "/#{@user.slug}"
     else
       flash[:failure] = "Unable to authenticate username/password, please try again."
       redirect '/login'
@@ -57,7 +59,7 @@ class UsersController < ApplicationController
     end
   end
 
-  get '/users/:slug' do
+  get '/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end

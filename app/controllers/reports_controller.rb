@@ -102,7 +102,7 @@ class ReportsController < ApplicationController
         erb :'/reports/edit'
       else
         flash[:failure] = "You cannot edit another user's report"
-        redirect to "/users/#{User.find(session[:user_id]).slug}"
+        redirect to "/#{User.find(session[:user_id]).slug}"
       end
     else
       redirect to '/login'
@@ -134,9 +134,9 @@ class ReportsController < ApplicationController
     @report = Report.find_by_slug(params[:slug])
     if @report != nil && logged_in? && @report.user_id == session[:user_id]
       @report.destroy
-      redirect to "/users/#{@user.slug}"
+      redirect to "/#{@user.slug}"
     else
-      redirect to "/users/#{@user.slug}"
+      redirect to "/#{@user.slug}"
     end
   end
 
