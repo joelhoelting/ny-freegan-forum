@@ -2551,10 +2551,10 @@ output {
   width: 100%;
   height: 34px;
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.42857143;
-  color: #555;
-  background-color: #fff;
+  color: black;
+  background-color: #FAFAFA;
   background-image: none;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -2571,14 +2571,16 @@ output {
           box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
 }
 .form-control::-moz-placeholder {
-  color: #999;
+  color: #333333;
+  font-size: 16px;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #999;
+  color: #333333;
 }
 .form-control::-webkit-input-placeholder {
-  color: #999;
+  font-size: 16px;
+  color: #333333;
 }
 .form-control::-ms-expand {
   background-color: transparent;
@@ -2662,7 +2664,7 @@ input[type="search"] {
 .checkbox-inline {
   position: relative;
   display: inline-block;
-  padding-left: 20px;
+  padding-left: 35px;
   margin-bottom: 0;
   font-weight: normal;
   vertical-align: middle;
@@ -2910,7 +2912,7 @@ select[multiple].input-lg {
   display: block;
   margin-top: 5px;
   margin-bottom: 10px;
-  color: #737373;
+  color: #EEEEEE;
 }
 @media (min-width: 768px) {
   .form-inline .form-group {
@@ -6821,6 +6823,24 @@ button.close {
   margin-top: 0em;
 }
 /* Vertical Offset Bottom */
+.vert-offset-bottom-18{
+  margin-bottom: 18em;
+}
+.vert-offset-bottom-17{
+  margin-bottom: 17em;
+}
+.vert-offset-bottom-16{
+  margin-bottom: 16em;
+}
+.vert-offset-bottom-15{
+  margin-bottom: 15em;
+}
+.vert-offset-bottom-14{
+  margin-bottom: 14em;
+}
+.vert-offset-bottom-13{
+  margin-bottom: 13em;
+}
 .vert-offset-bottom-12{
   margin-bottom: 12em;
 }
@@ -6863,5 +6883,11 @@ button.close {
 .vert-center {
   position: relative;
   top: 50%;
+  transform: translateY(-50%);
+}
+
+.vert-off-center {
+  position: relative;
+  top: 35%;
   transform: translateY(-50%);
 }

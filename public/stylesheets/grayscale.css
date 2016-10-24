@@ -317,4 +317,17 @@ body {
   text-decoration: none;
   background-color: #B1B1B1; }
 
+@media (max-width: 992px) {
+  .responsive-margin {
+    margin-top: 140px; } }
+@media (max-width: 620px) {
+  .responsive-margin {
+    margin-top: 160px; } }
+@media (max-width: 600px) {
+  .responsive-margin {
+    margin-top: 200px; } }
+@media (max-width: 515px) {
+  .responsive-margin {
+    margin-top: 240px; } }
+
 /*# sourceMappingURL=grayscale.css.map */

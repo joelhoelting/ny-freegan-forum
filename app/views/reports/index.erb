@@ -1,7 +1,7 @@
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body>
 
   <!-- Navigation -->
-  <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-custom" role="navigation">
       <div class="container">
           <div class="navbar-header">
               <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -43,9 +43,8 @@
       <!-- /.container -->
   </nav>
 
-  <div class="container vert-center">
-    <h3><center>All Reports</center></h3>
-    </br><br>
+  <div class="container vert-center responsive-margin">
+    <h3 class="text-center">All Reports</h3>
     <table class="table">
       <thead>
         <tr>
@@ -62,13 +61,9 @@
             <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
             <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
             <td><%= report.location %></td>
-            <% if report.user_id != nil %>
-              <% user = User.find(report.user_id) %>
-              <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
-            <% else %>
-              <td>computer</td>
-            <% end %>
-              <td><%= report.created_at %></td>
+            <% user = User.find(report.user_id) %>
+            <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
+            <td><%= report.created_at %></td>
           </tr>
         <% end %>
       </tbody>

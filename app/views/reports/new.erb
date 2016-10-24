@@ -27,7 +27,7 @@
                   </li>
                 <% else %>
                   <li>
-                    <a href="/reports/new">View Reports</a>
+                    <a href="/reports">View Reports</a>
                   </li>
                   <li>
                     <a href="/<%= @user.slug %>">Profile</a>
@@ -43,48 +43,48 @@
       <!-- /.container -->
   </nav>
 
-  <div class="container vert-center">
+  <div class="container vert-center responsive-margin">
     <form class="form-horizontal" action="/reports/new" method="POST">
 
       <!-- Form Name -->
-      <h1 class="text-center">New Report</h1></legend><br><br>
+      <h1 class="text-center">New Report</h1>
       <!-- Text input-->
       <div class="form-group">
         <label class="col-md-3 control-label" for="title">Title</label>
         <div class="col-md-6">
-          <input id="title" name="title" placeholder="title" class="form-control input-md" type="text">
+          <input id="title" name="title" class="form-control input-md" type="text">
         </div>
       </div>
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-3 control-label" for="textinput">Business</label>
+        <label class="col-md-3 control-label" for="textinput">Business:</label>
         <div class="col-md-6">
-          <input id="business" name="business" placeholder="name of business" class="form-control input-md" type="text">
+          <input id="business" name="business" class="form-control input-md" type="text">
         </div>
       </div>
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-3 control-label" for="textinput">Location</label>
+        <label class="col-md-3 control-label" for="textinput">Location:</label>
         <div class="col-md-6">
-          <input id="location" name="location" placeholder="address or cross-streets" class="form-control input-md" type="text">
+          <input id="location" name="location" class="form-control input-md" type="text">
         </div>
       </div>
 
       <!-- Textarea -->
       <div class="form-group">
-        <label class="col-md-3 control-label" for="textarea">Summary</label>
+        <label class="col-md-3 control-label" for="textarea">Summary:</label>
         <div class="col-md-6">
-          <textarea class="form-control" rows="12" id="textarea" name="content" placeholder="type of a brief summary of your experience"></textarea>
+          <textarea class="form-control" rows="12" id="textarea" name="content" placeholder="Type of a brief summary of your experience"></textarea>
         </div>
       </div>
 
       <!-- Text input-->
       <div class="form-group">
-        <label class="col-md-3 control-label" for="textinput">Date</label>
+        <label class="col-md-3 control-label" for="textinput">Date:</label>
         <div class="col-md-6">
-        <input id="date" name="date" placeholder="date" class="form-control input-md" type="text">
+        <input id="date" name="date" class="form-control input-md" type="text">
         <span class="help-block">YYYY-MM-DD</span>
         </div>
       </div>
@@ -92,7 +92,7 @@
       <!-- Multiple Radios -->
 
       <div class="form-group">
-        <label class="col-md-3 control-label" for="radios">Borough</label>
+        <label class="col-md-3 control-label" for="radios">Borough:</label>
           <div class="col-md-6">
             <% Borough.all.each do |borough| %>
               <label class="radio-inline"><input type="radio" name="borough" value="<%=borough.name%>" id="<%=borough.name%>"><%=borough.name%></label>

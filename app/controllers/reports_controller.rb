@@ -22,9 +22,11 @@ class ReportsController < ApplicationController
     if params[:title].nil? || params[:title].length < 3 || params[:business].nil? || params[:business].length < 3 || params[:location].nil? || params[:location].length < 3 || params[:content].nil? || params[:content].length < 3 || params[:date].nil? || params[:date].length < 3 || params[:borough].nil?
       flash[:failure] = "Please do not leave any forms blank"
       redirect to '/reports/new'
+    elsif params[:title].downcase == "bronx" || params[:title].downcase == "brooklyn" || params[:title].downcase == "manhattan" || params[:title].downcase == "queens" || params[:title].downcase == "staten island" || params[:title].downcase == "statenisland"
+      flash[:failure] = "Title is not acceptable"
+      redirect to '/reports/new'
     elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
       flash[:failure] = "Date must follow proper format: YYYY-MM-DD"
-      flash[:content] = params[:content]
       redirect to '/reports/new'
     else
       @user = User.find_by(id: session[:user_id])

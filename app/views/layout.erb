@@ -18,7 +18,7 @@
 
   <%= yield %>
   <% if flash[:failure] %>
-    <div class="alert alert-danger text-center vert-offset-top-custom">
+    <div class="alert alert-danger text-center" >
       <%= flash[:failure] %>
     </div>
   <% end %>
@@ -27,4 +27,5 @@
       <%= flash[:success] %>
     </div>
   <% end %>
+
   </html>

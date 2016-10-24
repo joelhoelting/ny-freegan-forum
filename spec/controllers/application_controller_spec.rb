@@ -422,72 +422,43 @@ describe ApplicationController do
 
     context 'Borough Show Pages' do
       it 'displays Bronx Showpage' do
+        binding.pry
         get '/reports/bronx'
         expect(last_request.url).to eq("http://example.org/reports/bronx")
-        Report.all.each do |report|
-          if report.borough == "Bronx"
-            expect(last_response.body).to include(report.title)
-            expect(last_response.body).to include(report.content)
-            expect(last_response.body).to include(report.date)
-            expect(last_response.body).to include(report.borough)
-          end
-        end
+        expect(last_response.body).to include(@report3.title)
+        expect(last_response.body).to include(@report3.location)
         expect(last_response.status).to eq(200)
       end
 
       it 'displays Brooklyn Showpage' do
         get '/reports/brooklyn'
         expect(last_request.url).to eq("http://example.org/reports/brooklyn")
-        Report.all.each do |report|
-          if report.borough == "Brooklyn"
-            expect(last_response.body).to include(report.title)
-            expect(last_response.body).to include(report.content)
-            expect(last_response.body).to include(report.date)
-            expect(last_response.body).to include(report.borough)
-          end
-        end
+        expect(last_response.body).to include(@report1.title)
+        expect(last_response.body).to include(@report1.location)
         expect(last_response.status).to eq(200)
       end
 
       it 'displays Manhattan Showpage' do
         get '/reports/manhattan'
         expect(last_request.url).to eq("http://example.org/reports/manhattan")
-        Report.all.each do |report|
-          if report.borough == "Manhattan"
-            expect(last_response.body).to include(report.title)
-            expect(last_response.body).to include(report.content)
-            expect(last_response.body).to include(report.date)
-            expect(last_response.body).to include(report.borough)
-          end
-        end
+        expect(last_response.body).to include(@report5.title)
+        expect(last_response.body).to include(@report5.location)
         expect(last_response.status).to eq(200)
       end
 
       it 'displays Queens Showpage' do
-        get '/reports/queens'
+        get "/reports/queens"
         expect(last_request.url).to eq("http://example.org/reports/queens")
-        Report.all.each do |report|
-          if report.borough == "Queens"
-            expect(last_response.body).to include(report.title)
-            expect(last_response.body).to include(report.content)
-            expect(last_response.body).to include(report.date)
-            expect(last_response.body).to include(report.borough)
-          end
-        end
+        expect(last_response.body).to include(@report4.title)
+        expect(last_response.body).to include(@report6.location)
         expect(last_response.status).to eq(200)
       end
 
       it 'displays Staten Island Showpage' do
         get '/reports/staten_island'
         expect(last_request.url).to eq("http://example.org/reports/staten_island")
-        Report.all.each do |report|
-          if report.borough == "Staten Island"
-            expect(last_response.body).to include(report.title)
-            expect(last_response.body).to include(report.content)
-            expect(last_response.body).to include(report.date)
-            expect(last_response.body).to include(report.borough)
-          end
-        end
+        expect(last_response.body).to include(@report7.title)
+        expect(last_response.body).to include(@report7.location)
         expect(last_response.status).to eq(200)
       end
     end
