@@ -6903,9 +6903,3 @@ button.close {
   top: 50%;
   transform: translateY(-50%);
 }
-
-.vert-off-center {
-  position: relative;
-  top: 35%;
-  transform: translateY(-50%);
-}
