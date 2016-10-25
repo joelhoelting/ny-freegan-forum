@@ -14,11 +14,12 @@ class UsersController < ApplicationController
       redirect '/signup'
     elsif params[:username] == "signup" || params[:username] == "login"
       flash[:failure] = "Please Choose a Different Username"
+      redirect '/signup'
     elsif params[:username].length < 6
       flash[:failure] = "Username Must be Six or More Characters"
       redirect '/signup'
     elsif params[:password].length < 6
-      flash[:failure] = "Username Must be Six or More Characters"
+      flash[:failure] = "Password Must be Six or More Characters"
       redirect '/signup'
     elsif (/[^\w]{1}/ =~ params[:password]).nil? || (/\d{1}/ =~ params[:password]).nil?
       flash[:failure] = "Password Must Contain One Number and One Special Character"

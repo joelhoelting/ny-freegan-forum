@@ -8,7 +8,7 @@
                   Menu <i class="fa fa-bars"></i>
               </button>
               <a class="navbar-brand page-scroll" href="/">
-                <span class="light">NY</span> Freedom Forum
+                <span class="light">NY</span> Freegan Forum
               </a>
           </div>
 
@@ -44,7 +44,23 @@
   </nav>
 
   <div class="container vert-center responsive-margin">
-    <h3 class="text-center">All Reports</h3>
+    <div class="row text-center">
+      <div class="btn-group">
+        <button type="button" class="btn btn-menu btn-ex-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          All Boroughs <span class="caret-lg"></span>
+        </button>
+        <ul style="width:100%;" class="dropdown-menu">
+          <li class="text-center"><a href="/reports/brooklyn">Brooklyn</a></li>
+          <li class="text-center"><a href="/reports/bronx">Bronx</a></li>
+          <li class="text-center"><a href="/reports/manhattan">Manhattan</a></li>
+          <li class="text-center"><a href="/reports/queens">Queens</a></li>
+          <li class="text-center"><a href="/reports/staten_island">Staten Island</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="text-center"><a href="/reports">All Boroughs</a></li>
+        </ul>
+      </div>
+    </div>
+    <br>
     <table class="table">
       <thead>
         <tr>
@@ -69,13 +85,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row">
-    <h6>Bronx</h6>
-    <h6>Brooklyn</h6>
-    <h6>Bronx</h6>
-    <h6>Bronx</h6>
-    <h6>Bronx</h6>
-  </div>
+
 
   <!-- jQuery -->
   <script src="/js/jquery.js"></script>
