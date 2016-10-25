@@ -10,18 +10,18 @@ class UsersController < ApplicationController
 
   post '/signup' do
     if User.find_by(username: params[:username])
-      flash[:failure] = "Username is already taken"
+      flash[:failure] = "Username is Taken"
       redirect '/signup'
-    elsif params[:username] == "signup" || params[:username]=="login"
-      flash[:failure] = "Username is unavailable"
+    elsif params[:username] == "signup" || params[:username] == "login"
+      flash[:failure] = "Please Choose a Different Username"
     elsif params[:username].length < 6
-      flash[:failure] = "Username must be six or more characters"
+      flash[:failure] = "Username Must be Six or More Characters"
       redirect '/signup'
     elsif params[:password].length < 6
-      flash[:failure] = "Password must be six or more characters"
+      flash[:failure] = "Username Must be Six or More Characters"
       redirect '/signup'
     elsif (/[^\w]{1}/ =~ params[:password]).nil? || (/\d{1}/ =~ params[:password]).nil?
-      flash[:failure] = "Password must contain one number and one special character"
+      flash[:failure] = "Password Must Contain One Number and One Special Character"
       redirect '/signup'
     else
       @user = User.create(username: params[:username], password: params[:password])
@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/#{@user.slug}"
     else
-      flash[:failure] = "Unable to authenticate username/password, please try again."
+      flash[:failure] = "Unable to Authenticate Username and Password. Please Try Again."
       redirect '/login'
     end
   end

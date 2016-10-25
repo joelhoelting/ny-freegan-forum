@@ -28,11 +28,6 @@
   src: url("../fonts/montserrat-regular-webfont.woff2") format("woff2"), url("../fonts/montserrat-regular-webfont.woff") format("woff");
   font-weight: 400;
   font-style: normal; }
-div#flash {
-  position: fixed;
-  bottom: -20;
-  width: 100%; }
-
 body {
   width: 100%;
   height: 80%;
@@ -282,5 +277,20 @@ body {
   @media screen and (max-width: 515px) {
     .responsive-longform {
       margin-top: 240px; } }
+
+div#flash {
+  position: fixed;
+  bottom: -20;
+  width: 100%;
+  font-size: 1.5em;
+  font-family: "Montserrat"; }
+  @media (max-width: 768px) {
+    div#flash {
+      font-size: .8em; } }
+
+div.alert-success {
+  color: #151515;
+  background-color: #42DCA3;
+  border-color: #42DCA3; }
 
 /*# sourceMappingURL=grayscale.css.map */
