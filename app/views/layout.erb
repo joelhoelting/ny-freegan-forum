@@ -16,16 +16,17 @@
     <link href="/stylesheets/grayscale.css" rel="stylesheet">
   </head>
 
-  <%= yield %>
   <% if flash[:failure] %>
-    <div class="alert alert-danger text-center" >
+    <div id="flash" class="alert alert-danger text-center" >
       <%= flash[:failure] %>
     </div>
   <% end %>
   <% if flash[:success] %>
-    <div class="alert alert-success text-center">
+    <div id="flash" class="alert alert-success text-center">
       <%= flash[:success] %>
     </div>
   <% end %>
+  <%= yield %>
+
 
   </html>
