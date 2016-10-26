@@ -42,7 +42,7 @@ body {
     height: 80%;
     font-family: "Lora","Helvetica Neue",Helvetica,Arial,sans-serif;
     color: $primaryfont;
-    background-color: #333333;
+    background-color: $background;
     margin: 0px;
     padding: 0px;
 }
@@ -186,7 +186,7 @@ a {
     text-align: center;
     color: #EEEEEE;
     background: url(../images/landing-background.jpg) no-repeat bottom center scroll;
-    background-color: #333333;
+    background-color: black;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -242,7 +242,10 @@ a {
     border: none;
     color: #D9D9D9;
     background-color: transparent;
-    &:hover,
+    &:hover {
+      background-color: transparent;
+      color: #D9D9D9;
+    }
     &:focus {
         outline: none;
         color: #333333;
@@ -321,40 +324,6 @@ body {
   background-color: #B1B1B1;
 }
 
-.responsive-margin  {
-  @media screen and (max-width:992px) {
-    margin-top: 140px;
-  }
-  @media screen and (max-width:620px) {
-    margin-top: 160px;
-  }
-  @media screen and (max-width:600px) {
-    margin-top: 200px;
-  }
-  @media screen and (max-width:515px) {
-    margin-top: 240px;
-  }
-}
-
-.responsive-longform  {
-    margin-top: 60px;
-  @media screen and (max-width:1200px) {
-    margin-top: 100px;
-  }
-  @media screen and (max-width:992px) {
-    margin-top: 140px;
-  }
-  @media screen and (max-width:620px) {
-    margin-top: 160px;
-  }
-  @media screen and (max-width:600px) {
-    margin-top: 200px;
-  }
-  @media screen and (max-width:515px) {
-    margin-top: 240px;
-  }
-}
-
 div#flash {
     z-index: 1000;
     position: fixed;
@@ -371,4 +340,58 @@ div.alert-success {
   color: #151515;
   background-color: #42DCA3;
   border-color: #42DCA3;
+}
+
+div.show {
+  background-color: #4E4E4E;
+  border: 1px solid #B1B1B1;
+  padding: 50px 40px 50px 40px;
+  margin-bottom: 50px;
+  letter-spacing: .6px;
+  h1 {
+    padding-bottom: 10px;
+    margin: 0 0;
+  }
+  p#subheader {
+    padding-bottom: 10px;
+  }
+  p {
+    font-size: 1.6em;
+  }
+  @media(max-width:768px) {
+    background-color: transparent;
+    border: none;
+    padding: 40px 40px;
+    h1 {
+      padding-bottom: 10px;
+      margin: 0 0;
+    }
+    p#subheader {
+      padding-bottom: 10px;
+      border-bottom: none ;
+    }
+    p {
+      font-size: .8em;
+    }
+  }
+}
+
+form#button {
+  padding: 0 10px;
+  input {
+    padding: 5px 0;
+    width: 160px;
+    color: #404040;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 25px;
+    font-family: "Montserrat","Helvetica Neue",Helvetica,Arial,sans-serif;
+    background-color: #EEEEEE;
+    &:hover,
+    &:focus {
+        outline: none;
+        color: #333333;
+        background-color: #D9D9D9;
+    }
+  }
 }

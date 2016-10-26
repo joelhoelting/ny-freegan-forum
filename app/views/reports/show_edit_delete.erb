@@ -42,22 +42,22 @@
       <!-- /.container -->
   </nav>
 
-<div class="container vert-center">
-  <h1 class="text-center"><%=@report.title%></center></h1>
-    <p>Borough: <%= @report.borough.name %>
-    <p>Date: <%= @report.date.strftime('%A, %b %d, %Y') %></p>
-    <p>Name of Business: <%= @report.business %></p>
-    <p>Address/Location: <%= @report.location %></p>
-    <p>Summary: <%= @report.content %></p>
+<div class="container show vert-offset-top-4-percent">
+    <h1 class="text-center"><%=@report.title%></h1>
+    <p id="subheader" class="text-center"><%= @report.date.strftime('%A, %b %d, %Y') %></p>
+    <p>Borough: <strong><%= @report.borough.name %></strong><p>
+    <p>Business: <strong><%= @report.business %></strong></p>
+    <p>Location: <strong><%= @report.location %></strong></p>
+    <p><%= @report.content %></p>
     <br>
     <div class="text-center ">
-      <form action="/reports/<%=@report.slug%>/edit" style="display: inline-block">
-        <input type="submit" id="Edit" value="Edit" style="background-color: #EEEEEE; width: 120px; font-family: 'Montserrat'; font-size: 25px; border: solid 2px #6E6E6E; color: black; border-radius: 10%" />
+      <form id="button" action="/reports/<%=@report.slug%>/edit" style="display: inline-block">
+        <input type="submit" id="Edit" value="EDIT" />
       </form>
 
-      <form action="/reports/<%= @report.slug %>/delete" method="post" style="display: inline-block">
+      <form id="button" action="/reports/<%= @report.slug %>/delete" method="post" style="display: inline-block">
         <input type="hidden" name="_method" value="Delete" />
-        <input type="submit" id="Delete" value="Delete" style="background-color: #EEEEEE; width: 120px; font-family: 'Montserrat'; font-size: 25px; border: solid 2px #6E6E6E; color: black; border-radius: 10%" />
+        <input type="submit" id="Delete" value="DELETE" />
       </form>
     </div>
 </div>

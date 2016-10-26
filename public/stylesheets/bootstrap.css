@@ -6840,6 +6840,37 @@ button.close {
 .vert-offset-top-0{
   margin-top: 0em;
 }
+
+.vert-offset-top-1-percent {
+  margin-top: 1%
+}
+.vert-offset-top-2-percent {
+  margin-top: 2%
+}
+.vert-offset-top-3-percent {
+  margin-top: 3%
+}
+.vert-offset-top-4-percent {
+  margin-top: 4%
+}
+.vert-offset-top-5-percent {
+  margin-top: 5%
+}
+.vert-offset-top-6-percent {
+  margin-top: 6%
+}
+.vert-offset-top-7-percent {
+  margin-top: 7%
+}
+.vert-offset-top-8-percent {
+  margin-top: 8%
+}
+.vert-offset-top-9-percent {
+  margin-top: 9%
+}
+.vert-offset-top-10-percent {
+  margin-top: 10%
+}
 /* Vertical Offset Bottom */
 .vert-offset-bottom-18{
   margin-bottom: 18em;

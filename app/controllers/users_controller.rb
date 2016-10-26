@@ -61,7 +61,9 @@ class UsersController < ApplicationController
   end
 
   get '/:slug' do
-    @current_user = User.find(session[:user_id])
+    if logged_in?
+      @current_user = User.find(session[:user_id])
+    end
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end
