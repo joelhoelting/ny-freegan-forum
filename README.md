@@ -2,7 +2,7 @@
 
 ### Introduction
 
-A CRUD (Create, Read, Update and Delete) web app with a back-end built in Sinatra using Test-Driven Development (TDD). Front-end styled with Javascript, Bootstrap and Sass using a modified version of the [Grayscale](https://startbootstrap.com/template-overviews/grayscale/) bootstrap theme. The NY Freegan Forum allows the freegan community in New York to collect and contribute information about freeganistic activities in the five boroughs. Visitors to the site can view all reports, or view reports by borough, without logging in. For user authentication, username and password validators were created with a combination of Ruby and RegEx. Logged in users can create new reports and can edit and delete their reports.
+A CRUD (Create, Read, Update and Delete) web app with a back-end built in Sinatra using Test-Driven Development (TDD). Front-end styled with Javascript, Bootstrap and Sass using a modified version of the [Grayscale](https://startbootstrap.com/template-overviews/grayscale/) bootstrap theme. The NY Freegan Forum allows the freegan community in New York to collect and contribute information about freeganistic activities in the five boroughs. Visitors do not need to be logged in to view any of the reports but they need to create an account to create a new report. For user authentication, username and password validators were created with a combination of Ruby and RegEx. Logged in users can create new reports and can edit and delete their reports.
 
 ### Installation and Usage
 
