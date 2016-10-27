@@ -318,4 +318,7 @@ form#button {
       color: #333333;
       background-color: #D9D9D9; }
 
+form {
+  margin-bottom: 66px; }
+
 /*# sourceMappingURL=grayscale.css.map */
