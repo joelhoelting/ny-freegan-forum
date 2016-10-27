@@ -20,7 +20,7 @@ Run migrations:
 $ rake db:migrate
 ```
 
-Seed database:
+In order for this app to function, you must seed it with 5 boroughs:
 
 ```
 $ rake db:seed
