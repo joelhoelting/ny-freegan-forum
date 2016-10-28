@@ -73,7 +73,7 @@
       </thead>
       <tbody>
         <% @reports.each do |report| %>
-          <tr class='clickable-row' data-href="../reports/<%=report.slug%>">
+          <tr>
             <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
             <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
             <td><%= report.location %></td>
