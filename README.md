@@ -1,4 +1,4 @@
-## Freegan Forum
+## Freegan Forum - [www.freeganforum.com](www.freeganforum.com)
 
 ### Introduction
 
@@ -35,7 +35,7 @@ $ shotgun
 
 ### Contributing
 
-All contributions to the project are welcome. Please send pull-requests to the upstream repository: [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum)
+All contributions to the project are welcome. Please send pull-requests to the upstream repository. If you make some useful contributions I will grant you ssh access to the main repository. My bigger goal is to create more cities and branch out from NYC. So if you'd like to build some more models and tables for the database, please feel free to go for it. [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum)
 
 ## License
 
