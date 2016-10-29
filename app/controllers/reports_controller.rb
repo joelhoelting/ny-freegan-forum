@@ -28,6 +28,10 @@ class ReportsController < ApplicationController
     elsif (/(19|20)\d\d[- \/.](0[1-9]|1[012])[- \/.](0[1-9]|[12][0-9]|3[01])/ =~ params[:date]) != 0
       flash[:failure] = "Date must follow proper format: YYYY-MM-DD"
       redirect to '/reports/new'
+    elsif params[:date] > DateTime.now.to_date.strftime("%Y/%m/%d")
+      binding.pry
+      flash[:failure] = "Date must be present or past. Did you build a time machine?"
+      redirect to 'reports/new'
     else
       @user = User.find_by(id: session[:user_id])
       @borough = Borough.find_by(name: params[:borough])

@@ -6929,8 +6929,3 @@ button.close {
 .vert-offset-bottom-0{
   margin-bottom: 0em;
 }
-.vert-center {
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}

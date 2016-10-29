@@ -24,6 +24,9 @@ class UsersController < ApplicationController
     elsif (/[^\w]{1}/ =~ params[:password]).nil? || (/\d{1}/ =~ params[:password]).nil?
       flash[:failure] = "Password Must Contain One Number and One Special Character"
       redirect '/signup'
+    elsif params[:password] != params[:confirm_password]
+      flash[:failure] = "Passwords do not match"
+      redirect '/signup'
     else
       @user = User.create(username: params[:username], password: params[:password])
       session[:user_id] = @user.id
