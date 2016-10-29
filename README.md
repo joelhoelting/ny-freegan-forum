@@ -1,4 +1,6 @@
-## Freegan Forum - [www.freeganforum.com](www.freeganforum.com)
+## Freegan Forum
+
+[www.freeganforum.com](www.freeganforum.com)
 
 ### Introduction
 
