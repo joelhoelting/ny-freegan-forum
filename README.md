@@ -37,7 +37,7 @@ $ shotgun
 
 ### Contributing
 
-Contributions to the project are welcome. Please send pull-requests to the upstream repository. If you make some useful contributions I will grant you direct access to the main repository. My bigger goal is to create more cities and to branch out from NYC. If you'd like to build some more models and tables for the database, please feel free to do that. [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum)
+Contributions to the project are welcome. Please send pull-requests to the upstream repository. If you make some useful contributions I will grant you direct access to the main repository. My bigger goal is to create more cities and to branch out from NYC. If you'd like to build some more models and tables for the database, I would be interested to see what you can develop.
 
 ## License
 
