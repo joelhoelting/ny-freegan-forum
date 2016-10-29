@@ -22,7 +22,7 @@ Run migrations:
 $ rake db:migrate
 ```
 
-In order for this app to function, you must seed it with 5 boroughs:
+In order for this app to function, you must seed it with the included 5 boroughs:
 
 ```
 $ rake db:seed
@@ -37,8 +37,10 @@ $ shotgun
 
 ### Contributing
 
-All contributions to the project are welcome. Please send pull-requests to the upstream repository. If you make some useful contributions I will grant you ssh access to the main repository. My bigger goal is to create more cities and branch out from NYC. So if you'd like to build some more models and tables for the database, please feel free to go for it. [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum)
+Contributions to the project are welcome. Please send pull-requests to the upstream repository. If you make some useful contributions I will grant you direct access to the main repository. My bigger goal is to create more cities and to branch out from NYC. If you'd like to build some more models and tables for the database, please feel free to do that. [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum)
 
 ## License
 
-GPL License v2 | Copyleft (c) 2016 [Joel Bitar](http://www.joelbitar.space)
+GPL License v2 | Copyleft (c) 2016 Joel Bitar
+
+[www.joelbitar.space](http://www.joelbitar.space)
