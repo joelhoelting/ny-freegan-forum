@@ -205,6 +205,9 @@ a {
     outline: none;
     color: #333333;
     background-color: #E6E6E6; }
+  @media (max-width: 768px) {
+    .btn-menu {
+      font-size: 1.5em; } }
 
 ul.banner-social-buttons {
   margin-top: 0; }
@@ -480,4 +483,4 @@ form#button {
 form {
   margin-bottom: 66px; }
 
-/*# sourceMappingURL=grayscale.css.map */
+/*# sourceMappingURL=custom.css.map */
