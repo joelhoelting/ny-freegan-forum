@@ -61,31 +61,33 @@
       </div>
     </div>
     <br>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Location</th>
-          <th>User</th>
-          <th>Date Posted</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @reports.each do |report| %>
-          <tr class='clickable-row' data-href="../reports/<%=report.slug%>">
-            <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
-            <td><%= report.location %></td>
-            <% if report.user_id != nil %>
-              <% user = User.find(report.user_id) %>
-              <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
-            <% else %>
-              <td>computer</td>
-            <% end %>
-              <td><%= report.created_at %></td>
+    <div style="overflow-x:auto;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Location</th>
+            <th>User</th>
+            <th>Date Posted</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @reports.each do |report| %>
+            <tr class='clickable-row' data-href="../reports/<%=report.slug%>">
+              <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
+              <td><%= report.location %></td>
+              <% if report.user_id != nil %>
+                <% user = User.find(report.user_id) %>
+                <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
+              <% else %>
+                <td>computer</td>
+              <% end %>
+                <td><%= report.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table
+    </div>
   </div>
 
   <!-- jQuery -->

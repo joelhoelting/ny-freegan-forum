@@ -61,29 +61,31 @@
       </div>
     </div>
     <br>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Borough</th>
-          <th>Location</th>
-          <th>User</th>
-          <th>Date Posted</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @reports.each do |report| %>
+    <div style="overflow-x:auto;">
+      <table class="table">
+        <thead>
           <tr>
-            <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
-            <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
-            <td><%= report.location %></td>
-            <% user = User.find(report.user_id) %>
-            <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
-            <td><%= report.created_at %></td>
+            <th>Title</th>
+            <th>Borough</th>
+            <th>Location</th>
+            <th>User</th>
+            <th>Date Posted</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @reports.each do |report| %>
+            <tr>
+              <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
+              <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
+              <td><%= report.location %></td>
+              <% user = User.find(report.user_id) %>
+              <td><a href="/<%=user.slug%>"><%= user.username %></a></td>
+              <td><%= report.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
 

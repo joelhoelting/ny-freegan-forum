@@ -46,26 +46,28 @@
   <div class="container vert-offset-top-3">
     <h3 class="text-center"><%=@user.username %>'s Reports</h3>
     </br><br>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Borough</th>
-          <th>Location</th>
-          <th>Date Posted</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @user.reports.each do |report| %>
+    <div style="overflow-x:auto;">
+      <table class="table">
+        <thead>
           <tr>
-            <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
-            <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
-            <td><%= report.location %></td>
-            <td><%= report.created_at %></td>
+            <th>Title</th>
+            <th>Borough</th>
+            <th>Location</th>
+            <th>Date Posted</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @user.reports.each do |report| %>
+            <tr>
+              <td><a href="/reports/<%=report.slug%>"><%= report.title %></a></td>
+              <td><a href="/reports/<%= report.borough.slug %>"><%= report.borough.name %></td>
+              <td><%= report.location %></td>
+              <td><%= report.created_at %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- jQuery -->
