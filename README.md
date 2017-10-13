@@ -41,6 +41,6 @@ Contributions to the project are welcome. Please send pull-requests to the upstr
 
 ## License
 
-GPL License v2 | Copyleft (c) 2016 Joel Bitar
+GPL License v2 | Copyleft (c) 2016 Joel Hoelting
 
-[www.joelbitar.space](http://www.joelbitar.space)
+[https://joelhoelting.com](https://www.joelhoelting.com)
