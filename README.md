@@ -8,7 +8,7 @@ A CRUD (Create, Read, Update and Delete) web app with a back-end built in Sinatr
 
 ### Installation and Usage
 
-Github repository of the project: [https://github.com/joelbitar1986/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum).
+Github repository of the project: [https://github.com/joelhoelting/ny-freegan-forum](https://github.com/joelbitar1986/ny-freegan-forum).
 
 After cloning the repository:
 
